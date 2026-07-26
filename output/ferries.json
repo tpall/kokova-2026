@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-07-26T12:17:30Z",
+  "generated_utc": "2026-07-26T16:09:27Z",
   "race_start": "2026-08-14T21:00:00+0300",
   "ferries": [
     {
@@ -10,7 +10,8 @@
       "km_to": 204.2,
       "crossing_min": 75,
       "operator": "TS Laevad",
-      "source": "praamid.ee"
+      "source": "praamid.ee",
+      "onboard": "restoran + R-Kiosk"
     },
     {
       "leg": "SOR-TRI",
@@ -20,7 +21,8 @@
       "km_to": 331.2,
       "crossing_min": 35,
       "operator": "Kihnu Veeteed",
-      "source": "veeteed.com"
+      "source": "veeteed.com",
+      "onboard": "kinnitamata"
     },
     {
       "leg": "KUI-VIR",
@@ -30,7 +32,8 @@
       "km_to": 705.9,
       "crossing_min": 27,
       "operator": "TS Laevad",
-      "source": "praamid.ee"
+      "source": "praamid.ee",
+      "onboard": "restoran + R-Kiosk"
     }
   ],
   "sailings": [

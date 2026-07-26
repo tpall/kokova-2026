@@ -11,6 +11,8 @@ rada ~985 km (millest ~954 km sõidetakse, ülejäänu on praamid).
 | [`reports/ferry_plan.md`](reports/ferry_plan.md) | Kõigi kolme praamiliini graafikud võistlusaknas, Sõru värava analüüs ja soovituslikud väljumised nelja tempoprofiili kohta |
 | [`reports/weather_outlook.md`](reports/weather_outlook.md) | Kliimaülevaade 14.–21. augustiks ERA5 põhjal (2016–2025): temperatuur, sadu, tuuleroos ja oodatav vastutuule osakaal |
 | [`reports/weather_forecast.md`](reports/weather_forecast.md) | Elav 16-päevane prognoos rajapunktides — täitub, kui start jõuab prognoosiaknasse (~30. juuli) |
+| [`reports/race_strategy.md`](reports/race_strategy.md) | Võistlusstrateegia: vorm, võimsus, uni ja see, millist tempot Sõru praam nõuab |
+| [`reports/resupply.md`](reports/resupply.md) | Varustuspunktid, lahtiolekuajad, ööpäevaringsete vahed ja toitlustus |
 
 ## Peamine järeldus
 
@@ -27,7 +29,7 @@ Rohuküla praami, millega sinna veel jõuab.
 
 ```
 R/         skriptid
-data/      rada: KMZ ja sellest tuletatud geomeetria
+data/      rada: KMZ, tuletatud geomeetria ja varustuspunktid
 output/    masinloetavad tulemused (JSON)
 reports/   inimloetavad raportid (Markdown)
 ```
@@ -40,9 +42,10 @@ nimed on käsitsi pandud. Kõik `output/` ja `reports/` sisu genereeritakse.
 Käivita projekti juurkaustast:
 
 ```sh
-make daily      # praamid + ilmaprognoos (see, mida CI iga päev teeb)
+make daily      # praamid + prognoos + strateegia (see, mida CI iga päev teeb)
 make outlook    # ERA5 kliimaülevaade (aeglane, ~1 min; muutub harva)
 make route      # tuletatud rajageomeetria, kui KMZ on uuenenud
+make resupply   # varustuspunktid OSM-ist (aeglane, ~10 min; ainult raja muutudes)
 make all        # kõik ülalolev
 ```
 

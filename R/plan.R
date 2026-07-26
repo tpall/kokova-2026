@@ -108,27 +108,49 @@ wind_effect <- function(route_deg, wind_from_deg) {
 }
 
 # Ferry legs, keyed by the km at which the rider reaches the departure quay.
+#
+# `onboard` is a resupply column, not trivia. TS Laevad run a hot-food
+# restaurant (Take Off) and an R-Kiosk on all five of their vessels, with no
+# published restriction on early or late sailings — which makes the 75-minute
+# Hiiumaa crossing the single best eating opportunity on the route, and the one
+# resupply that is open at 06:30 on a Saturday when every island shop is shut.
+# Nothing found confirms catering on Soela, so treat Sõru–Triigi as no service.
 FERRIES <- tribble(
-  ~leg,       ~from,        ~to,          ~km_from, ~km_to, ~crossing_min, ~operator,        ~source,
-  "ROH-HEL",  "Rohuküla",   "Heltermaa",     181.6,  204.2,            75, "TS Laevad",      "praamid.ee",
-  "SOR-TRI",  "Sõru",       "Triigi",        316.5,  331.2,            35, "Kihnu Veeteed",  "veeteed.com",
-  "KUI-VIR",  "Kuivastu",   "Virtsu",        698.5,  705.9,            27, "TS Laevad",      "praamid.ee"
+  ~leg,       ~from,        ~to,          ~km_from, ~km_to, ~crossing_min, ~operator,        ~source,       ~onboard,
+  "ROH-HEL",  "Rohuküla",   "Heltermaa",     181.6,  204.2,            75, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk",
+  "SOR-TRI",  "Sõru",       "Triigi",        316.5,  331.2,            35, "Kihnu Veeteed",  "veeteed.com", "kinnitamata",
+  "KUI-VIR",  "Kuivastu",   "Virtsu",        698.5,  705.9,            27, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk"
 )
 
 # ── Rider profiles ────────────────────────────────────────────────────────────
 # moving_kmh  — speed while actually turning the pedals (60% of the route is
 #               forest/gravel, so this sits well below road-bike numbers)
 # stop_frac   — share of riding time lost to resupply, kit faff, punctures
+# push_frac   — the same, but during the opening push before the first sleep,
+#               when riders stop for almost nothing. This is not a refinement:
+#               the opening push is what decides which Sõru ferry you make, and
+#               a single whole-race stop fraction understates it badly. The
+#               rider's own 2025 ride covered 349 km in 17.85 h elapsed off the
+#               start — 19.6 km/h including stops against 18.5 km/h moving, so
+#               barely 6% of that leg was spent stationary.
 # sleep_h     — hours of sleep taken per night
 # sleep_from  — clock hour at which the rider stops for the night
 # first_night — TRUE if the rider sleeps during the first (21:00 start) night
 
 PROFILES <- tribble(
-  ~profile,      ~moving_kmh, ~stop_frac, ~sleep_h, ~sleep_from, ~first_night,
-  "Terav ots",          25.0,       0.10,      3.5,          3L,       FALSE,
-  "Keskmik",            21.0,       0.16,      5.0,          2L,       FALSE,
-  "Lõpetaja",           17.5,       0.22,      7.0,          1L,        TRUE,
-  "Limiidi peal",       14.0,       0.30,      8.0,         23L,        TRUE
+  ~profile,      ~moving_kmh, ~stop_frac, ~push_frac, ~sleep_h, ~sleep_from, ~first_night,
+  "Terav ots",          25.0,       0.10,       0.04,      3.5,          3L,       FALSE,
+  "Keskmik",            21.0,       0.16,       0.07,      5.0,          2L,       FALSE,
+  "Lõpetaja",           17.5,       0.22,       0.12,      7.0,          1L,        TRUE,
+  "Limiidi peal",       14.0,       0.30,       0.18,      8.0,         23L,        TRUE,
+  # Calibrated to the rider's own ~937 km Estonian ride of 15–19 Aug 2025:
+  # 50.6 h riding for 89.8 h elapsed, 18.5 km/h moving, 39.1 h stopped, and the
+  # first night ridden straight through (349 km off a 20:48 start). See
+  # reports/race_strategy.md for how these map onto the model.
+  "Taavi 2025 tempo",   18.5,       0.28,       0.06,      6.0,          2L,       FALSE,
+  # Same shape, derated for the current detrained state: chronic load sits at
+  # ~39% of the April peak with 13 days off the bike as of 26 Jul.
+  "Taavi 2026 ootus",   16.5,       0.32,       0.10,      6.0,          2L,       FALSE
 )
 
 # Estonian weekday abbreviations — LC_TIME is pinned to "C" so that parsing the
@@ -136,6 +158,9 @@ PROFILES <- tribble(
 # "Fri" in a report that is otherwise in Estonian.
 ET_WDAY <- c("esmasp.", "teisip.", "kolmap.", "neljap.", "reede", "laup.", "pühap.")
 ET_ABBR <- c("E", "T", "K", "N", "R", "L", "P")
+
+# Estonian writes the decimal separator as a comma.
+num_et <- function(x, digits = 1) sub("\\.", ",", sprintf(paste0("%.", digits, "f"), x))
 
 fmt_et <- function(x, with_time = TRUE) {
   wd <- ET_ABBR[as.integer(format(x, "%u"))]
@@ -159,7 +184,10 @@ next_sailing <- function(sailings, leg_code, after) {
 
 simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
   trk_km   <- total_km
-  eff_kmh  <- prof$moving_kmh * (1 - prof$stop_frac)
+  # Stops are rare until the first sleep, then settle at the whole-race rate.
+  eff_now  <- function(slept) {
+    prof$moving_kmh * (1 - if (slept == 0L) prof$push_frac else prof$stop_frac)
+  }
   now      <- RACE_START
   km       <- 0
   slept    <- 0                       # nights of sleep already taken
@@ -175,7 +203,8 @@ simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
 
     # Ride to the target, inserting nights of sleep along the way.
     while (leg_km > 1e-6) {
-      hrs_to_target <- leg_km / eff_kmh
+      eff           <- eff_now(slept)
+      hrs_to_target <- leg_km / eff
       # when does the next sleep start?
       d0        <- as.Date(now, tz = TZ)
       cand      <- as.POSIXct(sprintf("%s %02d:00:00", d0, prof$sleep_from), tz = TZ)
@@ -189,7 +218,7 @@ simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
       hrs_to_sleep <- as.numeric(difftime(cand, now, units = "hours"))
 
       if (hrs_to_sleep < hrs_to_target) {
-        km      <- km + hrs_to_sleep * eff_kmh
+        km      <- km + hrs_to_sleep * eff
         leg_km  <- target - km
         now     <- cand + prof$sleep_h * 3600
         slept   <- slept + 1L

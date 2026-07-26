@@ -48,6 +48,10 @@ reports/   the human-facing markdown
 | `R/weather_outlook.R` | ERA5 climatology for 14–21 Aug → `output/weather_outlook.json`, `reports/weather_outlook.md` |
 | `data/waypoints.csv` | 21 waypoints: km, coordinates, elevation, type, direction of travel. **Names are hand-authored** — `prepare_route.R` preserves them. |
 | `data/route_directions.csv` | Distance-weighted travel-direction histogram, 1° bins |
+| `R/resupply.R` | **Needs the KMZ.** Overpass query along the route → `data/resupply.csv`. Slow and throttled; manual. |
+| `R/athlete.R` | Rider constants — FTP, zones, current form, and the measured history of TBR 2026 and Kõkõva 2025. Every figure names its source. |
+| `R/race_strategy.R` | Pacing + ferries + fitness → `reports/race_strategy.md` |
+| `R/resupply_plan.R` | Resupply gaps, opening hours, fuelling → `reports/resupply.md` |
 
 **All paths in `R/plan.R` are relative to the project root, so scripts must be
 run from there** — `make daily` or `Rscript R/ferry_schedule.R`, never from

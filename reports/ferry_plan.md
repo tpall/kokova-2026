@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — praamiplaan
 
-> Genereeritud **2026-07-26 15:17 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
+> Genereeritud **2026-07-26 19:09 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** ~985 km
 
@@ -93,19 +93,19 @@ Lõpetab **E 17.08 07:35** (58 h 35 min, limiidini 109 h).
 
 | km | Sündmus | Aeg |
 |---:|---------|-----|
-| 181.6 | Rohuküla→Heltermaa L 15.08 06:30 (ootamine 1.4 h) | saabub L 15.08 05:04 |
-| 316.5 | Sõru→Triigi L 15.08 18:30 (ootamine 5.8 h) | saabub L 15.08 12:44 |
+| 181.6 | Rohuküla→Heltermaa L 15.08 06:30 (ootamine 1.9 h) | saabub L 15.08 04:34 |
+| 316.5 | Sõru→Triigi L 15.08 18:30 (ootamine 6.1 h) | saabub L 15.08 12:25 |
 | 698.5 | Kuivastu→Virtsu P 16.08 15:15 (ootamine 0.3 h) | saabub P 16.08 14:54 |
 
 ### Keskmik — 21.0 km/h sõidus, 5.0 h und, ~16% peatusi
 
-Lõpetab **E 17.08 18:19** (69 h 20 min, limiidini 99 h).
+Lõpetab **E 17.08 17:44** (68 h 45 min, limiidini 99 h).
 
 | km | Sündmus | Aeg |
 |---:|---------|-----|
-| 181.6 | Rohuküla→Heltermaa L 15.08 08:30 (ootamine 1.2 h) | saabub L 15.08 07:17 |
-| 316.5 | Sõru→Triigi L 15.08 18:30 (ootamine 2.4 h) | saabub L 15.08 16:06 |
-| 698.5 | Kuivastu→Virtsu P 16.08 21:05 (ootamine 0.2 h) | saabub P 16.08 20:54 |
+| 181.6 | Rohuküla→Heltermaa L 15.08 06:30 (ootamine 0.2 h) | saabub L 15.08 06:17 |
+| 316.5 | Sõru→Triigi L 15.08 18:30 (ootamine 5.0 h) | saabub L 15.08 13:30 |
+| 698.5 | Kuivastu→Virtsu P 16.08 20:30 (ootamine 0.3 h) | saabub P 16.08 20:09 |
 
 ### Lõpetaja — 17.5 km/h sõidus, 7.0 h und, ~22% peatusi
 
@@ -113,7 +113,7 @@ Lõpetab **K 19.08 08:32** (107 h 32 min, limiidini 60 h).
 
 | km | Sündmus | Aeg |
 |---:|---------|-----|
-| 181.6 | Rohuküla→Heltermaa L 15.08 17:30 (ootamine 0.2 h) | saabub L 15.08 17:18 |
+| 181.6 | Rohuküla→Heltermaa L 15.08 17:30 (ootamine 0.7 h) | saabub L 15.08 16:47 |
 | 316.5 | Sõru→Triigi P 16.08 11:00 (ootamine 1.0 h) | saabub P 16.08 09:58 |
 | 698.5 | Kuivastu→Virtsu E 17.08 21:40 (ootamine 0.2 h) | saabub E 17.08 21:29 |
 
@@ -123,9 +123,29 @@ Lõpetab **R 21.08 11:33** (158 h 33 min, limiidini 9 h).
 
 | km | Sündmus | Aeg |
 |---:|---------|-----|
-| 181.6 | Rohuküla→Heltermaa P 16.08 08:30 (ootamine 1.0 h) | saabub P 16.08 07:31 |
+| 181.6 | Rohuküla→Heltermaa P 16.08 08:30 (ootamine 1.3 h) | saabub P 16.08 07:11 |
 | 316.5 | Sõru→Triigi E 17.08 08:15 (ootamine 11.0 h) | saabub P 16.08 21:12 |
 | 698.5 | Kuivastu→Virtsu K 19.08 14:40 (ootamine 0.4 h) | saabub K 19.08 14:18 |
+
+### Taavi 2025 tempo — 18.5 km/h sõidus, 6.0 h und, ~28% peatusi
+
+Lõpetab **T 18.08 12:27** (87 h 27 min, limiidini 81 h).
+
+| km | Sündmus | Aeg |
+|---:|---------|-----|
+| 181.6 | Rohuküla→Heltermaa L 15.08 08:30 (ootamine 1.1 h) | saabub L 15.08 07:26 |
+| 316.5 | Sõru→Triigi L 15.08 18:30 (ootamine 2.3 h) | saabub L 15.08 16:12 |
+| 698.5 | Kuivastu→Virtsu E 17.08 09:05 (ootamine 0.5 h) | saabub E 17.08 08:32 |
+
+### Taavi 2026 ootus — 16.5 km/h sõidus, 6.0 h und, ~32% peatusi
+
+Lõpetab **K 19.08 12:17** (111 h 17 min, limiidini 57 h).
+
+| km | Sündmus | Aeg |
+|---:|---------|-----|
+| 181.6 | Rohuküla→Heltermaa L 15.08 10:00 (ootamine 0.8 h) | saabub L 15.08 09:13 |
+| 316.5 | Sõru→Triigi P 16.08 08:15 (ootamine 13.4 h) | saabub L 15.08 18:48 |
+| 698.5 | Kuivastu→Virtsu T 18.08 05:00 (ootamine 5.4 h) | saabub E 17.08 23:34 |
 
 ---
 
