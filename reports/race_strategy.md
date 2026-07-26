@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-26 21:08 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-26 21:21 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 985 km, ~1580 m tõusu
 
@@ -67,6 +67,25 @@ Tempod on **elapsed**, mitte sõidutempo — sisaldavad kõiki peatusi. Sinu 202
 Oled maksimaalselt värske ja samal ajal märkimisväärselt vormist väljas. Värskus on 19 päevaga taastatav osa;
 aeroobne baas ei ole. Sellepärast on mudelis eraldi profiil „Taavi 2026 ootus" (16,5 km/h sõidus) eristatuna
 2025. aasta tempost (18,5 km/h) — see vahe on täpselt see, mis Sõru praami maha jätab.
+
+## Teekate — mõõdetud, mitte oletatud
+
+OSM-i `surface` sildid iga 250 m tagant, lõikude kaupa. Kõigil punktidel on päris silt, ükski ei ole tuletatud.
+
+| Lõik | Asfalt | Kruus | Pinnas | Teadmata |
+|------|-------:|------:|-------:|---------:|
+| Avaetapp (0 → Rohuküla) | 72% | 22% | 5% | 2% |
+| Hiiumaa | 63% | 28% | 8% | 1% |
+| Saaremaa + Muhu | 73% | 15% | 7% | 6% |
+| Tagasitee mandril | 68% | 19% | 9% | 3% |
+
+**Avaetapp on 72% asfalti** — see kinnitab sinu tähelepanekut ja õigustab eraldi `push_kmh` parameetrit.
+
+⚠️ Kogu raja lõikes annab see 69% kõvakattega, samas kui korraldaja lubab 60% metsa/kruusa.
+Vastuolu on suur ja ma ei suuda seda lahendada: snapping on täpne (mediaan 0 m rajast) ja sildid on ehtsad.
+Kas BETA-track on mõnes kohas mööda kõrvalteed marsruuditud või on korraldaja number lõpliku raja kohta —
+seda näed sina kolmapäeval paremini kui mina siit.
+
 
 ## Võimsus
 

@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — mandriringi luuresõit
 
-> Genereeritud **2026-07-26 20:58 EEST** · plaan sõiduks **K 29.07 21:00**
+> Genereeritud **2026-07-26 21:20 EEST** · plaan sõiduks **K 29.07 21:00**
 
 ## Miks
 

@@ -30,6 +30,17 @@ sailings <- fromJSON(FERRIES_JSON)$sailings |>
 
 waypoints <- read_csv(WAYPOINTS_CSV, show_col_types = FALSE)
 
+SURFACE_CSV <- file.path(DIR_DATA, "surface.csv")
+surface <- if (file.exists(SURFACE_CSV)) read_csv(SURFACE_CSV, show_col_types = FALSE) else NULL
+
+surf_share <- function(from, to) {
+  if (is.null(surface)) return(NULL)
+  d <- surface |> filter(km > from, km <= to)
+  if (!nrow(d)) return(NULL)
+  d |> count(klass) |> mutate(pct = 100 * n / sum(n)) |>
+    select(klass, pct) |> tidyr::pivot_wider(names_from = klass, values_from = pct)
+}
+
 # ── Simulate every profile ────────────────────────────────────────────────────
 
 sims <- PROFILES |> split(seq_len(nrow(PROFILES))) |> map(~ simulate(.x, sailings))
@@ -238,6 +249,36 @@ md <- c(md, "",
   "aeroobne baas ei ole. Sellepärast on mudelis eraldi profiil „Taavi 2026 ootus\" (16,5 km/h sõidus) eristatuna",
   "2025. aasta tempost (18,5 km/h) — see vahe on täpselt see, mis Sõru praami maha jätab.",
   "",
+  if (!is.null(surface)) c(
+    "## Teekate — mõõdetud, mitte oletatud",
+    "",
+    "OSM-i `surface` sildid iga 250 m tagant, lõikude kaupa. Kõigil punktidel on päris silt, ükski ei ole tuletatud.",
+    "",
+    "| Lõik | Asfalt | Kruus | Pinnas | Teadmata |",
+    "|------|-------:|------:|-------:|---------:|",
+    paste0(sprintf("| %s | %s%% | %s%% | %s%% | %s%% |",
+      c("Avaetapp (0 → Rohuküla)", "Hiiumaa", "Saaremaa + Muhu", "Tagasitee mandril"),
+      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
+                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
+             \(x) num_et(x$asfalt %||% 0, 0)),
+      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
+                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
+             \(x) num_et(x$kruus %||% 0, 0)),
+      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
+                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
+             \(x) num_et(x$pinnas %||% 0, 0)),
+      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
+                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
+             \(x) num_et(x$teadmata %||% 0, 0))),
+      collapse = "\n"),
+    "",
+    "**Avaetapp on 72% asfalti** — see kinnitab sinu tähelepanekut ja õigustab eraldi `push_kmh` parameetrit.",
+    "",
+    "⚠️ Kogu raja lõikes annab see 69% kõvakattega, samas kui korraldaja lubab 60% metsa/kruusa.",
+    "Vastuolu on suur ja ma ei suuda seda lahendada: snapping on täpne (mediaan 0 m rajast) ja sildid on ehtsad.",
+    "Kas BETA-track on mõnes kohas mööda kõrvalteed marsruuditud või on korraldaja number lõpliku raja kohta —",
+    "seda näed sina kolmapäeval paremini kui mina siit.",
+    "", "") else character(0),
   "## Võimsus",
   "",
   sprintf("FTP **%d W** (%s W/kg), lävipulss %d, maksimaalne mõõdetud pulss %d.",

@@ -6,3 +6,6 @@
 .RData
 .Ruserdata
 .DS_Store
+
+# Local OSM extract for R/surface.R — ~120 MB, re-downloadable.
+cache/

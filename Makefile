@@ -10,14 +10,14 @@ TRACK := data/kokova_2026_900_beta.kmz
 # macOS still ships 3.81.
 ROUTE := data/waypoints.csv
 
-.PHONY: all daily ferry forecast outlook route resupply strategy recon clean-reports
+.PHONY: all daily ferry forecast outlook route resupply surface strategy recon clean-reports
 
 # The daily targets. The climatology outlook is deliberately excluded: it reads
 # ten years of ERA5 and its numbers barely move, so it is a manual step. So is
 # resupply, which hammers Overpass and only changes when the route does.
 daily: ferry forecast strategy
 
-all: route resupply daily outlook
+all: route resupply surface daily outlook
 
 # The fetch steps are phony on purpose. Their output depends on what the ferry
 # operators and weather models say right now, not on any file, so timestamp
@@ -56,6 +56,12 @@ data/resupply.csv: $(TRACK) R/resupply.R R/plan.R
 strategy:
 	$(R) R/race_strategy.R
 	$(R) R/resupply_plan.R
+
+# Surface needs a ~120 MB Geofabrik extract, cached under cache/ and gitignored.
+surface: data/surface.csv
+
+data/surface.csv: $(TRACK) R/surface.R R/plan.R
+	$(R) R/surface.R
 
 # One-off plan for the 29-31 Jul recon ride; regenerate if the route changes.
 recon:
