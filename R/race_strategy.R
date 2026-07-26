@@ -126,6 +126,26 @@ be <- tibble(
   need_kmh  = vapply(c(0.10, 0.06, 0.03), breakeven, numeric(1))
 )
 
+# ── What each Rohuküla sailing actually buys ─────────────────────────────────
+# Every option below lands the same 18:30 Sõru sailing, so arriving at the quay
+# earlier does not put the rider on Saaremaa earlier — it only lengthens the
+# wait at Sõru. That wait is forced, which makes it the cheapest sleep on the
+# route.
+HIIUMAA_KMH <- 15    # elapsed pace Heltermaa → Sõru, gravel with kit
+
+opts <- tibble(dep = as.POSIXct(paste("2026-08-15", c("06:30", "08:30", "10:00")), tz = TZ)) |>
+  mutate(
+    hel      = dep + FERRIES$crossing_min[FERRIES$leg == "ROH-HEL"] * 60,
+    sor      = hel + (HEL_TO_SOR / HIIUMAA_KMH) * 3600,
+    need_kmh = TAL_TO_ROH / as.numeric(difftime(dep - BOARD_BUF * 3600, RACE_START, units = "hours")),
+    wait_h   = as.numeric(difftime(SAT_EVENING, sor, units = "hours")),
+    dep_lbl  = format(dep, "%H:%M"),
+    hel_lbl  = format(hel, "%H:%M"),
+    sor_lbl  = format(sor, "%H:%M"),
+    wait_lbl = ifelse(wait_h < 0, sprintf("**%s min hiljaks**", num_et(-wait_h * 60, 0)),
+                      paste0(num_et(wait_h, 1), " h"))
+  )
+
 # ── Report ────────────────────────────────────────────────────────────────────
 
 pct <- function(x) sprintf("%+.0f%%", 100 * x)
@@ -144,42 +164,43 @@ md <- c(
   "Rada on lauge. Kogu tõus 985 km peale on 1580 m — vähem kui TBR-i ühel päeval.",
   "Sinu 2026. aasta suurim on-bike piiraja, tõusudel püsiva võimsuse hoidmine, siin praktiliselt ei rakendu.",
   "",
-  "Selle võistluse otsustab **Sõru praam kilomeetril 316,5**. Ja praeguse vormiga jääd sellest napilt maha.",
+  "Selle võistluse otsustab **Sõru praam kilomeetril 316,5** — see sõidab võistlusaknas 2–3 korda päevas ja õhtusest mahajäämine maksab 13,4 h.",
+  "Avaetapi asfaldiga jõuad sinna välja; küsimus ei ole enam kas, vaid millise Rohuküla praamiga ja mida ooteajaga peale hakata.",
   "",
-  "## ⚠️ Kriitiline: laupäevane Sõru praam",
+  "## Laupäevane Sõru praam — ja mida iga Rohuküla praam tegelikult ostab",
   "",
-  sprintf("Mudel paneb sind Sõrule **%s**. Laupäevane õhtune praam väljub **18:30**.",
-          fmt_et(ferry_of(me, "Sõru→Triigi")$time)),
+  "Avaetapp on sinu sõnul suuresti asfalt, mis on mudelis nüüd eraldi kiirusena sees.",
+  "Sellega ei ole praamivärav enam piirav — aga see, millisele Rohuküla praamile jõuad, ei tähenda seda, mida ootaks.",
   "",
-  sprintf("Sa jääd sellest maha **%s minutiga** — ja järgmine väljumine on pühapäeva 08:15, seega ootamist **%s tundi**.",
-          num_et(as.numeric(difftime(ferry_of(me, "Sõru→Triigi")$time, SAT_EVENING - BOARD_BUF * 3600,
-                                     units = "mins")), 0),
-          num_et(sor_wait_h, 1)),
+  "| Rohuküla praam | Nõutav tempo stardist | Heltermaal | Sõrus (15 km/h Hiiumaal) | Ootamine Sõrus |",
+  "|----------------|----------------------:|------------|--------------------------|---------------:|",
+  paste0(sprintf("| **%s** | %s km/h elapsed | %s | %s | %s |",
+                 opts$dep_lbl, num_et(opts$need_kmh, 1), opts$hel_lbl,
+                 opts$sor_lbl, opts$wait_lbl), collapse = "\n"),
   "",
-  sprintf("Lõpetad **%s** (%s h). 2025. aasta sõidukiirusega oleks see **%s** (%s h) — mõlemad on selle sama 2026. aasta raja ja praamigraafiku mudelist, mitte võrdlus möödunud aasta tulemusega.",
-          fmt_et(me$finish), num_et(me$elapsed_h, 0),
-          fmt_et(me_2025$finish), num_et(me_2025$elapsed_h, 0)),
+  "**Kõik kolm esimest jõuavad samale 18:30 Sõru praamile.** Varem Rohukülla jõudmine ei too sind Saaremaale varem —",
+  sprintf("see ainult pikendab ootamist Sõrus. 10:00 praam on juba kiivas: %s km/h Hiiumaal jätab sind %s minutit hiljaks.",
+          num_et(HIIUMAA_KMH, 0), num_et(-opts$wait_h[3] * 60, 0)),
   "",
-  "> **2025. aasta rada oli täiesti teine.** Möödunud aasta Kõkõva läks Lääne-Virumaale ja Lõuna-Eestisse",
-  "> (idapikkus 25,6–27,6°, GPX-i järgi ~8 200 m tõusu, praame ei olnud); tänavune läheb läände ja saartele",
-  "> (21,9–24,7°, ~1 580 m, kolm praami). Kattuvust ei ole. Möödunud aasta **89,8 h ei ole seega võrreldav lõpuaeg** —",
-  "> üle kanduvad ainult sportlase enda näitajad: sõidukiirus, kui kaua ta enne esimest und sõidab, kui vähe ta magab",
-  "> ja kui aeglaselt võimsus langeb.",
+  sprintf("**Tegelik tähtaeg on %s Rohuküla praam.**", "08:30"),
   "",
-  "### Mis tempot see nõuab",
+  "### Ja siin on see, mida sellega peale hakata",
   "",
-  "Murdepunkt on leitud mudelit ennast läbi lastes, seega arvestab ka praamiootusi. Sõidukiirus, millega laupäevane 18:30 praam just napilt kätte tuleb:",
+  sprintf("Kui jõuad 06:30 praamile, tekib Sõrus **%s tundi surnud aega**. See aeg on sunnitud — praam ei välju varem, ükskõik kui kiiresti sõidad.",
+          num_et(opts$wait_h[1], 1)),
   "",
-  "| Peatuste distsipliin avaetapil | Nõutav sõidukiirus |",
-  "|--------------------------------|-------------------:|",
-  paste0(sprintf("| %s | **%s** |", be$label,
-                 ifelse(is.na(be$need_kmh), "ei saagi kätte",
-                        paste0(num_et(be$need_kmh, 1), " km/h"))),
-         collapse = "\n"),
+  sprintf("TBR-il seisid magamiseks %s h, et saada %s h und. Siin on uni **tasuta**: sa ootaksid niikuinii.",
+          num_et(ATHLETE$tbr$sleep_stopped_h, 1), num_et(ATHLETE$tbr$sleep_actual_h, 1)),
   "",
-  sprintf("Sinu 2025. aasta sõidukiirus oli %s km/h, praegune ootus %s km/h. Peatuste kärpimine 10%%-lt 6%%-le langetab nõutava kiiruse %s km/h võrra — see on **tasuta kiirus**, mille eest ei pea jalgadega maksma.",
-          num_et(ATHLETE$y2025$moving_kmh, 1), num_et(prof_me$moving_kmh, 1),
-          num_et(be$need_kmh[1] - be$need_kmh[2], 1)),
+  "| Variant | Triigis | Und selleks hetkeks | Hind |",
+  "|---------|---------|---------------------|------|",
+  sprintf("| 06:30 praam + uni Sõrus | 19:05 | **~%s h** | %s km/h avaetapil |",
+          num_et(max(0, opts$wait_h[1] - 0.5), 1), num_et(opts$need_kmh[1], 1)),
+  sprintf("| 08:30 praam, ei maga | 19:05 | 0 h | %s km/h avaetapil |", num_et(opts$need_kmh[2], 1)),
+  "",
+  "**Mõlemad jõuavad Triigisse kell 19:05.** Vahe on ainult selles, kas oled maganud.",
+  sprintf("Kaks tundi kõvemat sõitu avaetapil ostab %s tundi und, mis muidu läheks ootamisele.",
+          num_et(max(0, opts$wait_h[1] - 0.5), 1)),
   "",
   "### Kuidas see praam kätte saada",
   "",

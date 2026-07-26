@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-26 21:00 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-26 21:05 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 985 km, ~1580 m tõusu
 
@@ -9,33 +9,38 @@
 Rada on lauge. Kogu tõus 985 km peale on 1580 m — vähem kui TBR-i ühel päeval.
 Sinu 2026. aasta suurim on-bike piiraja, tõusudel püsiva võimsuse hoidmine, siin praktiliselt ei rakendu.
 
-Selle võistluse otsustab **Sõru praam kilomeetril 316,5**. Ja praeguse vormiga jääd sellest napilt maha.
+Selle võistluse otsustab **Sõru praam kilomeetril 316,5** — see sõidab võistlusaknas 2–3 korda päevas ja õhtusest mahajäämine maksab 13,4 h.
+Avaetapi asfaldiga jõuad sinna välja; küsimus ei ole enam kas, vaid millise Rohuküla praamiga ja mida ooteajaga peale hakata.
 
-## ⚠️ Kriitiline: laupäevane Sõru praam
+## Laupäevane Sõru praam — ja mida iga Rohuküla praam tegelikult ostab
 
-Mudel paneb sind Sõrule **L 15.08 18:48**. Laupäevane õhtune praam väljub **18:30**.
+Avaetapp on sinu sõnul suuresti asfalt, mis on mudelis nüüd eraldi kiirusena sees.
+Sellega ei ole praamivärav enam piirav — aga see, millisele Rohuküla praamile jõuad, ei tähenda seda, mida ootaks.
 
-Sa jääd sellest maha **34 minutiga** — ja järgmine väljumine on pühapäeva 08:15, seega ootamist **13,4 tundi**.
+| Rohuküla praam | Nõutav tempo stardist | Heltermaal | Sõrus (15 km/h Hiiumaal) | Ootamine Sõrus |
+|----------------|----------------------:|------------|--------------------------|---------------:|
+| **06:30** | 19,6 km/h elapsed | 07:45 | 15:14 | 3,3 h |
+| **08:30** | 16,1 km/h elapsed | 09:45 | 17:14 | 1,3 h |
+| **10:00** | 14,2 km/h elapsed | 11:15 | 18:44 | **14 min hiljaks** |
 
-Lõpetad **K 19.08 12:17** (111 h). 2025. aasta sõidukiirusega oleks see **T 18.08 12:27** (87 h) — mõlemad on selle sama 2026. aasta raja ja praamigraafiku mudelist, mitte võrdlus möödunud aasta tulemusega.
+**Kõik kolm esimest jõuavad samale 18:30 Sõru praamile.** Varem Rohukülla jõudmine ei too sind Saaremaale varem —
+see ainult pikendab ootamist Sõrus. 10:00 praam on juba kiivas: 15 km/h Hiiumaal jätab sind 14 minutit hiljaks.
 
-> **2025. aasta rada oli täiesti teine.** Möödunud aasta Kõkõva läks Lääne-Virumaale ja Lõuna-Eestisse
-> (idapikkus 25,6–27,6°, GPX-i järgi ~8 200 m tõusu, praame ei olnud); tänavune läheb läände ja saartele
-> (21,9–24,7°, ~1 580 m, kolm praami). Kattuvust ei ole. Möödunud aasta **89,8 h ei ole seega võrreldav lõpuaeg** —
-> üle kanduvad ainult sportlase enda näitajad: sõidukiirus, kui kaua ta enne esimest und sõidab, kui vähe ta magab
-> ja kui aeglaselt võimsus langeb.
+**Tegelik tähtaeg on 08:30 Rohuküla praam.**
 
-### Mis tempot see nõuab
+### Ja siin on see, mida sellega peale hakata
 
-Murdepunkt on leitud mudelit ennast läbi lastes, seega arvestab ka praamiootusi. Sõidukiirus, millega laupäevane 18:30 praam just napilt kätte tuleb:
+Kui jõuad 06:30 praamile, tekib Sõrus **3,3 tundi surnud aega**. See aeg on sunnitud — praam ei välju varem, ükskõik kui kiiresti sõidad.
 
-| Peatuste distsipliin avaetapil | Nõutav sõidukiirus |
-|--------------------------------|-------------------:|
-| praegune eeldus (10% peatusi) | **17,2 km/h** |
-| 2025. aasta distsipliin (6%) | **16,5 km/h** |
-| peaaegu ei peatu (3%) | **16,0 km/h** |
+TBR-il seisid magamiseks 36,8 h, et saada 22,2 h und. Siin on uni **tasuta**: sa ootaksid niikuinii.
 
-Sinu 2025. aasta sõidukiirus oli 18,5 km/h, praegune ootus 16,5 km/h. Peatuste kärpimine 10%-lt 6%-le langetab nõutava kiiruse 0,7 km/h võrra — see on **tasuta kiirus**, mille eest ei pea jalgadega maksma.
+| Variant | Triigis | Und selleks hetkeks | Hind |
+|---------|---------|---------------------|------|
+| 06:30 praam + uni Sõrus | 19:05 | **~2,8 h** | 19,6 km/h avaetapil |
+| 08:30 praam, ei maga | 19:05 | 0 h | 16,1 km/h avaetapil |
+
+**Mõlemad jõuavad Triigisse kell 19:05.** Vahe on ainult selles, kas oled maganud.
+Kaks tundi kõvemat sõitu avaetapil ostab 2,8 tundi und, mis muidu läheks ootamisele.
 
 ### Kuidas see praam kätte saada
 
@@ -94,12 +99,13 @@ Seejärel kaks ööd 4–5 h, magamiskoht valitud enne peatumist, mitte otsitud 
 
 | km | Sündmus | Aeg (Taavi 2026 ootus) |
 |---:|---------|------------------------|
-| 182 | Rohuküla→Heltermaa L 15.08 10:00 (ootamine 0.8 h) | L 15.08 09:13 |
-| 316 | Sõru→Triigi P 16.08 08:15 (ootamine 13.4 h) | L 15.08 18:48 |
-| 524 | uni 6.0 h | E 17.08 02:00 |
-| 698 | Kuivastu→Virtsu T 18.08 05:00 (ootamine 5.4 h) | E 17.08 23:34 |
-| 936 | uni 6.0 h | K 19.08 02:00 |
-| 985 | **Finiš** | **K 19.08 12:17** (111 h) |
+| 182 | Rohuküla→Heltermaa L 15.08 08:30 (ootamine 0.9 h) | L 15.08 07:37 |
+| 316 | Sõru→Triigi L 15.08 18:30 (ootamine 2.2 h) | L 15.08 16:19 |
+| 449 | uni 6.0 h | P 16.08 02:00 |
+| 651 | uni 6.0 h | E 17.08 02:00 |
+| 698 | Kuivastu→Virtsu E 17.08 12:55 (ootamine 0.7 h) | E 17.08 12:11 |
+| 848 | uni 6.0 h | T 18.08 02:00 |
+| 985 | **Finiš** | **T 18.08 20:12** (95 h) |
 
 Laevadel on toit: TS Laevade praamidel (Rohuküla–Heltermaa 75 min, Kuivastu–Virtsu 27 min) on restoran ja R-Kiosk.
 **75-minutiline Hiiumaa ülesõit on raja parim söögikoht** ja ainus, mis on laupäeva hommikul lahti, kui saarepoed veel magavad.

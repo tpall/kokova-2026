@@ -125,6 +125,10 @@ FERRIES <- tribble(
 # ── Rider profiles ────────────────────────────────────────────────────────────
 # moving_kmh  — speed while actually turning the pedals (60% of the route is
 #               forest/gravel, so this sits well below road-bike numbers)
+# push_kmh    — moving speed on the opening leg, which the rider reports is
+#               largely asphalt. The whole-race average understates it, and the
+#               opening leg is the one that decides the ferry, so it gets its
+#               own figure rather than a derating of a gravel number.
 # stop_frac   — share of riding time lost to resupply, kit faff, punctures
 # push_frac   — the same, but during the opening push before the first sleep,
 #               when riders stop for almost nothing. This is not a refinement:
@@ -138,20 +142,20 @@ FERRIES <- tribble(
 # first_night — TRUE if the rider sleeps during the first (21:00 start) night
 
 PROFILES <- tribble(
-  ~profile,      ~moving_kmh, ~stop_frac, ~push_frac, ~sleep_h, ~sleep_from, ~first_night,
-  "Terav ots",          25.0,       0.10,       0.04,      3.5,          3L,       FALSE,
-  "Keskmik",            21.0,       0.16,       0.07,      5.0,          2L,       FALSE,
-  "Lõpetaja",           17.5,       0.22,       0.12,      7.0,          1L,        TRUE,
-  "Limiidi peal",       14.0,       0.30,       0.18,      8.0,         23L,        TRUE,
+  ~profile,      ~moving_kmh, ~push_kmh, ~stop_frac, ~push_frac, ~sleep_h, ~sleep_from, ~first_night,
+  "Terav ots",          25.0,      28.0,       0.10,       0.04,      3.5,          3L,       FALSE,
+  "Keskmik",            21.0,      23.5,       0.16,       0.07,      5.0,          2L,       FALSE,
+  "Lõpetaja",           17.5,      19.5,       0.22,       0.12,      7.0,          1L,        TRUE,
+  "Limiidi peal",       14.0,      15.5,       0.30,       0.18,      8.0,         23L,        TRUE,
   # Calibrated to the rider's own ~937 km Estonian ride of 15–19 Aug 2025:
   # 18.5 km/h moving, 39.1 h stopped, first night ridden straight through
   # (349 km off a 20:48 start). Same event, different course — 2025 was southern
   # and eastern Estonia with ~5× the climbing and no ferries — so these are
   # rider capability numbers, not a transferable finish time. See R/athlete.R.
-  "Taavi 2025 tempo",   18.5,       0.28,       0.06,      6.0,          2L,       FALSE,
+  "Taavi 2025 tempo",   18.5,      20.5,       0.28,       0.06,      6.0,          2L,       FALSE,
   # Same shape, derated for the current detrained state: chronic load sits at
   # ~39% of the April peak with 13 days off the bike as of 26 Jul.
-  "Taavi 2026 ootus",   16.5,       0.32,       0.10,      6.0,          2L,       FALSE
+  "Taavi 2026 ootus",   16.5,      19.0,       0.32,       0.10,      6.0,          2L,       FALSE
 )
 
 # Estonian weekday abbreviations — LC_TIME is pinned to "C" so that parsing the
@@ -187,7 +191,8 @@ simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
   trk_km   <- total_km
   # Stops are rare until the first sleep, then settle at the whole-race rate.
   eff_now  <- function(slept) {
-    prof$moving_kmh * (1 - if (slept == 0L) prof$push_frac else prof$stop_frac)
+    if (slept == 0L) prof$push_kmh * (1 - prof$push_frac)
+    else             prof$moving_kmh * (1 - prof$stop_frac)
   }
   now      <- RACE_START
   km       <- 0
