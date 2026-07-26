@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-26 19:51 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-26 19:57 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 985 km, ~1580 m tõusu
 
@@ -29,7 +29,7 @@ Murdepunkt on leitud mudelit ennast läbi lastes, seega arvestab ka praamiootusi
 | 2025. aasta distsipliin (6%) | **16,5 km/h** |
 | peaaegu ei peatu (3%) | **16,0 km/h** |
 
-Sinu 2025. aasta sõidukiirus oli 18,5 km/h. Loeb see, et **peatuste kärpimine ostab rohkem aega kui kõvemini vajutamine** — 10%-lt 6%-le liikumine annab avaetapil rohkem kui terve km/h juurde.
+Sinu 2025. aasta sõidukiirus oli 18,5 km/h, praegune ootus 16,5 km/h. Peatuste kärpimine 10%-lt 6%-le langetab nõutava kiiruse 0,7 km/h võrra — see on **tasuta kiirus**, mille eest ei pea jalgadega maksma.
 
 ### Kuidas see praam kätte saada
 
