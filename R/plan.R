@@ -144,9 +144,10 @@ PROFILES <- tribble(
   "Lõpetaja",           17.5,       0.22,       0.12,      7.0,          1L,        TRUE,
   "Limiidi peal",       14.0,       0.30,       0.18,      8.0,         23L,        TRUE,
   # Calibrated to the rider's own ~937 km Estonian ride of 15–19 Aug 2025:
-  # 50.6 h riding for 89.8 h elapsed, 18.5 km/h moving, 39.1 h stopped, and the
-  # first night ridden straight through (349 km off a 20:48 start). See
-  # reports/race_strategy.md for how these map onto the model.
+  # 18.5 km/h moving, 39.1 h stopped, first night ridden straight through
+  # (349 km off a 20:48 start). Same event, different course — 2025 was southern
+  # and eastern Estonia with ~5× the climbing and no ferries — so these are
+  # rider capability numbers, not a transferable finish time. See R/athlete.R.
   "Taavi 2025 tempo",   18.5,       0.28,       0.06,      6.0,          2L,       FALSE,
   # Same shape, derated for the current detrained state: chronic load sits at
   # ~39% of the April peak with 13 days off the bike as of 26 Jul.

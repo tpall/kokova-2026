@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-26 19:57 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-26 20:39 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 985 km, ~1580 m tõusu
 
@@ -17,7 +17,13 @@ Mudel paneb sind Sõrule **L 15.08 18:48**. Laupäevane õhtune praam väljub **
 
 Sa jääd sellest maha **34 minutiga** — ja järgmine väljumine on pühapäeva 08:15, seega ootamist **13,4 tundi**.
 
-Lõpetad **K 19.08 12:17** (111 h). 2025. aasta tempoga oleks see **T 18.08 12:27** (87 h) — vahest ligi pool tuleb sellest ühest praamist, ülejäänu vormist.
+Lõpetad **K 19.08 12:17** (111 h). 2025. aasta sõidukiirusega oleks see **T 18.08 12:27** (87 h) — mõlemad on selle sama 2026. aasta raja ja praamigraafiku mudelist, mitte võrdlus möödunud aasta tulemusega.
+
+> **2025. aasta rada oli täiesti teine.** Möödunud aasta Kõkõva läks Lääne-Virumaale ja Lõuna-Eestisse
+> (idapikkus 25,6–27,6°, GPX-i järgi ~8 200 m tõusu, praame ei olnud); tänavune läheb läände ja saartele
+> (21,9–24,7°, ~1 580 m, kolm praami). Kattuvust ei ole. Möödunud aasta **89,8 h ei ole seega võrreldav lõpuaeg** —
+> üle kanduvad ainult sportlase enda näitajad: sõidukiirus, kui kaua ta enne esimest und sõidab, kui vähe ta magab
+> ja kui aeglaselt võimsus langeb.
 
 ### Mis tempot see nõuab
 
@@ -63,7 +69,8 @@ FTP **247 W** (3,22 W/kg), lävipulss 150, maksimaalne mõõdetud pulss 170.
 
 2025. aasta Kõkõval hoidsid keskmist 118 → 109 W ja langus kolme suure etapi jooksul oli ainult **-8%**.
 TBR-il oli sama näitaja **-27%** (115 → 84 W) — aga see oli 27 000 m tõusuga rada kuumuses.
-Lauge rada ja jahedam ilm tähendavad, et 2025. aasta profiil on õigem ootus.
+Tänavune rada on lauge ja ilm jahedam, seega vastupidavuse mõttes on 2025. aasta profiil õigem ootus —
+kuigi ka see rada oli tänavusest viis korda mägisem.
 
 | Lõik | Keskmine | NP | Miks |
 |------|---------:|---:|------|
@@ -78,7 +85,7 @@ Z2 on 138–185 W. Avaetapi 145–155 W NP on Z2 keskosa — see ei ole julge nu
 TBR-il seisid magamiseks **36,8 h**, et saada kätte **22,2 h** tegelikku und — 60% efektiivsus.
 Umbes **14,6 tundi** võistlusest kulus pikali, aga ärkvel. Kogu peatusaeg oli 45,9 h vs välja mediaan 33,8 h — vahe on praktiliselt seesama.
 
-2025. aasta Kõkõval tegid vastupidist ja see töötas: läbi esimese öö (349 km), siis kokku ainult 14,8 h und terve 90-tunnise võistluse peale.
+2025. aasta Kõkõval tegid vastupidist ja see töötas: läbi esimese öö (349 km), siis kokku ainult 14,8 h und terve 90-tunnise võistluse peale. Rada oli teine, aga see on käitumine, mitte maastik — kandub üle.
 
 **Plaan:** sõida esimene öö läbi. See ei ole kangelaslikkus — see on ainus viis olla laupäeva hommikul 08:30 Rohuküla praamil.
 Seejärel kaks ööd 4–5 h, magamiskoht valitud enne peatumist, mitte otsitud pärast.

@@ -31,12 +31,25 @@ ATHLETE <- list(
   training_status  = "DETRAINING",
   longest_ride_since_race_km = 61.7,   # 11 Jul, 2.4 h
 
-  # ── Kõkõva 2025: the single best predictor ──────────────────────────────────
-  # A ~937 km self-supported Estonian ride, 15–19 Aug 2025, off a 20:48 start.
-  # Same event, same terrain, same time of year, same start time of day.
+  # ── Kõkõva 2025: the best capability data, NOT a time prediction ────────────
+  # A ~937 km self-supported ride, 15–19 Aug 2025, off a 20:48 start. Same
+  # event and same format, but a completely different course: 2025 ran through
+  # Lääne-Virumaa and southern Estonia (lon 25.6–27.6 E, ~8 200 m of climbing in
+  # the GPX), 2026 runs west and out to the islands (lon 21.9–24.7 E, ~1 580 m).
+  # The longitude ranges do not even touch — there is no route overlap at all,
+  # and 2025 had no ferries.
+  #
+  # So the transferable figures are the rider ones: moving speed, how long he
+  # rides before first sleeping, how little he sleeps, how slowly his power
+  # decays. The 89.8 h elapsed is NOT transferable and must not be used as a
+  # target time. If anything the 18.5 km/h understates flat-terrain capability —
+  # it was set on five times the climbing — but the 2026 route is 60%
+  # forest/gravel, which cuts the other way. That tension is the single largest
+  # uncertainty in the whole plan.
   y2025 = list(
     km            = 936.7,
-    ascent_m      = 5749,
+    ascent_m      = 5749,   # Garmin barometric; the GPX route totals ~8 200 m
+    ferries       = 0,      # unlike 2026, nothing to wait for
     riding_h      = 50.6,
     elapsed_h     = 89.8,
     stopped_h     = 39.1,
