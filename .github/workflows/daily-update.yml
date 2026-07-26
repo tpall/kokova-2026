@@ -1,0 +1,77 @@
+name: Kõkõva 2026 daily update
+
+on:
+  schedule:
+    # 04:00 UTC = 07:00 EEST — after the overnight model runs, before riding.
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      run_outlook:
+        description: 'Also regenerate the ERA5 climatology outlook (slow, rarely changes)'
+        type: boolean
+        default: false
+  push:
+    paths:
+      - '*.R'
+      - waypoints.csv
+      - .github/workflows/daily-update.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      # Checkout is required so the daily commit lands on the repo, which also
+      # keeps the schedule alive — GitHub disables crons after 60 days of repo
+      # inactivity, and the daily commit prevents that.
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4'
+          use-public-rspm: true
+
+      - name: Setup R package dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            dplyr
+            tibble
+            purrr
+            tidyr
+            readr
+            xml2
+            httr2
+            jsonlite
+
+      - name: Ferry schedules
+        run: Rscript ferry_schedule.R
+
+      - name: Weather forecast
+        run: Rscript weather_forecast.R
+
+      - name: Climatology outlook
+        if: inputs.run_outlook
+        run: Rscript weather_outlook.R
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.md' '*.json'
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+          else
+            git commit -m "chore: ferry + weather update $(date -u +%Y-%m-%d)"
+            git push
+          fi

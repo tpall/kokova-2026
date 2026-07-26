@@ -1,0 +1,22 @@
+km,name,lat,lon,ele,type
+0,Tallinn Hundipea (start),59.46070,24.70544,7,start
+55,Liikva,59.39572,24.43297,25,road
+110,Siimika,59.12304,24.16338,44,road
+181.6,Rohuküla sadam,58.90768,23.42748,4,port
+204.2,Heltermaa sadam,58.86492,23.04393,7,port
+275,Esiküla (Hiiumaa),58.81387,22.83116,5,road
+316.5,Sõru sadam,58.69314,22.52230,3,port
+331.2,Triigi sadam,58.60742,22.71001,2,port
+385,Tagaranna (Saaremaa),58.50138,22.23564,6,road
+440,Neeme (Harilaid),58.49526,21.93070,9,road
+495,Tiirimetsa (Sõrve),58.15774,22.17669,3,road
+550,Vendise (Saaremaa),58.38907,22.34869,39,road
+605,Laimjala (Saaremaa),58.42733,23.00679,14,road
+660,Linnuse (Muhu),58.57985,23.16511,5,road
+698.5,Kuivastu sadam,58.57265,23.38773,4,port
+705.9,Virtsu sadam,58.57222,23.51543,5,port
+770,Martna (Läänemaa),58.81076,23.83995,15,road
+825,Väike-Nõmmküla (Läänemaa),59.06293,23.63311,20,road
+880,Pedase (Harjumaa),59.26326,23.92060,18,road
+935,Klooga,59.32094,24.22767,21,road
+984.6,Tallinn Hundipea (finish),59.46060,24.70567,7,finish

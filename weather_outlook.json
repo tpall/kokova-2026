@@ -1,0 +1,202 @@
+{
+  "generated_utc": "2026-07-26T09:07:44Z",
+  "years": [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "window": ["08-14", "08-21"],
+  "per_point": [
+    {
+      "km": 0,
+      "name": "Tallinn Hundipea (start)",
+      "tmax_med": 21.1,
+      "tmin_med": 13.8,
+      "tmax_p90": 25.93,
+      "tmin_p10": 11.99,
+      "wet_share": 0.45,
+      "rain_med": 0.5,
+      "rain_p90": 7.83,
+      "wind_med": 3.5454,
+      "wind_p90": 5.2229
+    },
+    {
+      "km": 181.6,
+      "name": "Rohuküla sadam",
+      "tmax_med": 20.3,
+      "tmin_med": 15.45,
+      "tmax_p90": 24.1,
+      "tmin_p10": 13.29,
+      "wet_share": 0.4625,
+      "rain_med": 0.6,
+      "rain_p90": 8.3,
+      "wind_med": 4.1046,
+      "wind_p90": 7.1062
+    },
+    {
+      "km": 204.2,
+      "name": "Heltermaa sadam",
+      "tmax_med": 20.4,
+      "tmin_med": 15.55,
+      "tmax_p90": 24.15,
+      "tmin_p10": 13.37,
+      "wet_share": 0.45,
+      "rain_med": 0.5,
+      "rain_p90": 7.84,
+      "wind_med": 4.5602,
+      "wind_p90": 7.3365
+    },
+    {
+      "km": 316.5,
+      "name": "Sõru sadam",
+      "tmax_med": 20.95,
+      "tmin_med": 14.95,
+      "tmax_p90": 25.01,
+      "tmin_p10": 12.56,
+      "wet_share": 0.4625,
+      "rain_med": 0.85,
+      "rain_p90": 6.58,
+      "wind_med": 4.2271,
+      "wind_p90": 6.5335
+    },
+    {
+      "km": 385,
+      "name": "Tagaranna (Saaremaa)",
+      "tmax_med": 21.2,
+      "tmin_med": 14.5,
+      "tmax_p90": 24.52,
+      "tmin_p10": 12.19,
+      "wet_share": 0.5,
+      "rain_med": 0.85,
+      "rain_p90": 7.23,
+      "wind_med": 4.0242,
+      "wind_p90": 6.2286
+    },
+    {
+      "km": 495,
+      "name": "Tiirimetsa (Sõrve)",
+      "tmax_med": 20.45,
+      "tmin_med": 15.65,
+      "tmax_p90": 23.53,
+      "tmin_p10": 13.19,
+      "wet_share": 0.4625,
+      "rain_med": 0.8,
+      "rain_p90": 9.6,
+      "wind_med": 4.56,
+      "wind_p90": 6.7061
+    },
+    {
+      "km": 698.5,
+      "name": "Kuivastu sadam",
+      "tmax_med": 20.8,
+      "tmin_med": 15.25,
+      "tmax_p90": 24.93,
+      "tmin_p10": 12.78,
+      "wet_share": 0.45,
+      "rain_med": 0.65,
+      "rain_p90": 6.25,
+      "wind_med": 4.11,
+      "wind_p90": 7.1062
+    },
+    {
+      "km": 770,
+      "name": "Martna (Läänemaa)",
+      "tmax_med": 21.5,
+      "tmin_med": 13.75,
+      "tmax_p90": 25.21,
+      "tmin_p10": 11.09,
+      "wet_share": 0.4375,
+      "rain_med": 0.75,
+      "rain_p90": 10.71,
+      "wind_med": 2.9917,
+      "wind_p90": 5.3267
+    }
+  ],
+  "wind_rose": [
+    {
+      "oct": "E",
+      "n": 3443,
+      "share": 0.2242
+    },
+    {
+      "oct": "L",
+      "n": 3318,
+      "share": 0.216
+    },
+    {
+      "oct": "KA",
+      "n": 2693,
+      "share": 0.1753
+    },
+    {
+      "oct": "LÄ",
+      "n": 2102,
+      "share": 0.1368
+    },
+    {
+      "oct": "LO",
+      "n": 1364,
+      "share": 0.0888
+    },
+    {
+      "oct": "I",
+      "n": 997,
+      "share": 0.0649
+    },
+    {
+      "oct": "P",
+      "n": 952,
+      "share": 0.062
+    },
+    {
+      "oct": "KI",
+      "n": 491,
+      "share": 0.032
+    }
+  ],
+  "direction_weight": [
+    {
+      "oct": 1,
+      "km": 111.5528,
+      "share": 0.1169
+    },
+    {
+      "oct": 2,
+      "km": 109.5547,
+      "share": 0.1148
+    },
+    {
+      "oct": 3,
+      "km": 129.4557,
+      "share": 0.1356
+    },
+    {
+      "oct": 4,
+      "km": 135.6319,
+      "share": 0.1421
+    },
+    {
+      "oct": 5,
+      "km": 103.8858,
+      "share": 0.1088
+    },
+    {
+      "oct": 6,
+      "km": 109.1853,
+      "share": 0.1144
+    },
+    {
+      "oct": 7,
+      "km": 120.6869,
+      "share": 0.1264
+    },
+    {
+      "oct": 8,
+      "km": 134.6316,
+      "share": 0.141
+    }
+  ],
+  "expected_exposure": [
+    {
+      "vastu": 0.25,
+      "kylg": 0.5016,
+      "pari": 0.2484
+    }
+  ]
+}
