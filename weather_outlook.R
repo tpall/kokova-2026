@@ -33,9 +33,10 @@ MD_TO   <- "08-21"
 # whole run stays under a couple of minutes against the free archive API.
 ANCHOR_KM <- c(0, 181.6, 204.2, 316.5, 385, 495, 698.5, 770)
 
+# Both route geometry inputs come from the committed CSVs written by
+# prepare_route.R, so this script never needs the (uncommitted) KMZ.
 waypoints <- read_csv(WAYPOINTS_CSV, show_col_types = FALSE)
-trk       <- read_track()
-waypoints$route_deg <- route_bearing(trk, waypoints$km)
+stopifnot("route_deg" %in% names(waypoints))
 anchors   <- waypoints |> filter(km %in% ANCHOR_KM)
 
 # ── ERA5 archive ──────────────────────────────────────────────────────────────
@@ -109,20 +110,12 @@ wind_rose <- obs |>
 # on Saaremaa counts for more than a short zigzag. Crossing that with the wind
 # rose gives the share of the ride spent on the nose for a typical mid-August.
 
-trk_dir <- trk |>
-  filter(step > 0, step < 3000) |>          # drop the quay-to-quay ferry jumps
-  mutate(brg = c(NA, bearing(head(lat, -1), head(lon, -1), tail(lat, -1), tail(lon, -1)))) |>
-  filter(!is.na(brg))
-
-# Bin travel direction to whole degrees rather than to the eight compass points.
+# Travel direction is binned to whole degrees, not to the eight compass points.
 # Binning both sides to octants puts the ±45° boundary exactly on a bin centre,
 # which pushes the two neighbouring octants into "vastu" while leaving only the
 # single opposing octant as "päri" — a closed loop then reports 37% headwind and
 # 13% tailwind instead of the ~25/25 it must be by symmetry.
-dir_deg <- trk_dir |>
-  mutate(deg = round(brg) %% 360) |>
-  group_by(deg) |>
-  summarise(km = sum(step) / 1000, .groups = "drop") |>
+dir_deg <- read_csv(ROUTE_DIRECTIONS_CSV, show_col_types = FALSE) |>
   mutate(share = km / sum(km))
 
 rel_share <- function(wind_deg) {

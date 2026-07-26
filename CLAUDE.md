@@ -35,12 +35,27 @@ Everything upstream of km 316.5 is really a race against one of these departures
 | File | Purpose |
 |---|---|
 | `kokova_plan.R` | Shared parameters, KMZ → track pipeline, ferry definitions, rider profiles, pacing simulation. Sourced by the others. |
+| `prepare_route.R` | **Needs the KMZ.** Regenerates `waypoints.csv` + `route_directions.csv`. Run once per new track. |
 | `ferry_schedule.R` | Fetches all three timetables → `ferries.json`, `ferry_plan.md` |
 | `weather_forecast.R` | Open-Meteo 16-day forecast → `weather_forecast.json`, `weather_forecast.md` |
 | `weather_outlook.R` | ERA5 climatology for 14–21 Aug → `weather_outlook.json`, `weather_outlook.md` |
-| `waypoints.csv` | 21 waypoints with km, coordinates, elevation, type |
+| `waypoints.csv` | 21 waypoints: km, coordinates, elevation, type, direction of travel |
+| `route_directions.csv` | Distance-weighted travel-direction histogram, 1° bins |
 
 Run any of them with `Rscript <file>` from the project root.
+
+### The KMZ is not committed
+
+The repo is public, and `kokova_2026_900_beta.kmz` is the organiser's unreleased
+BETA track — it is gitignored along with `*.gpx`. Only `prepare_route.R` reads
+it; everything else depends solely on the two derived CSVs, which *are*
+committed. This is what lets CI run without the track present.
+
+Consequence: **a fresh clone cannot regenerate the route files.** Get the KMZ
+from the organiser, drop it in the project root, then run `prepare_route.R`.
+The other three scripts work in a bare clone. `TOTAL_ROUTE_KM` in
+`kokova_plan.R` is a hardcoded constant for the same reason — refresh it from
+`prepare_route.R`'s output when a new track lands.
 
 ## Data sources and their quirks
 

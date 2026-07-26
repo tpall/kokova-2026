@@ -20,8 +20,23 @@ Rscript weather_forecast.R   # Open-Meteo prognoos
 Rscript weather_outlook.R    # ERA5 kliima (aeglane, ~1 min)
 ```
 
-Vajalikud R-pakid: `dplyr`, `tibble`, `purrr`, `tidyr`, `readr`, `xml2`, `httr2`, `jsonlite`.
-Ükski allikas ei nõua API võtit.
+Need kolm töötavad puhtas kloonis. Vajalikud R-pakid: `dplyr`, `tibble`,
+`purrr`, `tidyr`, `readr`, `xml2`, `httr2`, `jsonlite`. Ükski allikas ei nõua
+API võtit.
+
+### Rada pole repos
+
+`kokova_2026_900_beta.kmz` on korraldaja avaldamata BETA-rada ja seda siin ei
+hoita. Repos on ainult tuletatud failid — `waypoints.csv` (21 punkti koos
+sõidusuunaga) ja `route_directions.csv` (sõidusuundade jaotus) —, millest
+kõigile skriptidele piisab.
+
+Kui sul rada on ja tahad tuletatud failid uuesti genereerida, pane KMZ
+projekti juurkausta ja jooksuta:
+
+```sh
+Rscript prepare_route.R
+```
 
 ## Peamine järeldus
 
@@ -41,5 +56,6 @@ Rohuküla praami, millega sinna veel jõuab.
 - [Open-Meteo](https://open-meteo.com) — prognoos ja ERA5 reanalüüs
 - [panepanepane.ee/k6k6va](https://www.panepanepane.ee/k6k6va) — korraldaja
 
-Rada: `kokova_2026_900_beta.kmz`. Fail on märgitud BETA-ks, seega lõplik versioon
-võib muutuda — pärast uut KMZ-i jooksuta kõik kolm skripti uuesti.
+Rada on märgitud BETA-ks, seega lõplik versioon võib muutuda. Uue KMZ-i saabudes
+jooksuta esmalt `prepare_route.R` ja seejärel ülejäänud skriptid; kontrolli ka
+`TOTAL_ROUTE_KM` väärtust failis `kokova_plan.R`.

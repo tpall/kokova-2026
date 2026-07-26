@@ -31,9 +31,10 @@ RACE_DAYS_CONTROL       <- RACE_LIMIT_D
 RELEVANCE_BUFFER_BEHIND <- 120
 RELEVANCE_BUFFER_AHEAD  <- 320
 
+# route_deg is baked into the CSV by prepare_route.R so this script never needs
+# the KMZ, which is not committed.
 waypoints <- read_csv(WAYPOINTS_CSV, show_col_types = FALSE)
-trk       <- read_track()
-waypoints$route_deg <- route_bearing(trk, waypoints$km)
+stopifnot("route_deg" %in% names(waypoints))
 
 TOTAL_KM        <- max(waypoints$km)
 PACE_KM_PER_DAY <- TOTAL_KM / RACE_DAYS_CONTROL

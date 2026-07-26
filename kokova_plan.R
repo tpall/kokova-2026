@@ -20,8 +20,13 @@ RACE_START   <- as.POSIXct("2026-08-14 21:00:00", tz = TZ)
 RACE_LIMIT_D <- 7
 RACE_END     <- RACE_START + RACE_LIMIT_D * 86400   # Fri 21 Aug 21:00
 
-KMZ_FILE       <- "kokova_2026_900_beta.kmz"
-WAYPOINTS_CSV  <- "waypoints.csv"
+# The KMZ is the organiser's unreleased BETA track and is not committed. Only
+# prepare_route.R reads it; everything else uses the two derived CSVs below, so
+# the repo is self-contained without the track file.
+KMZ_FILE             <- "kokova_2026_900_beta.kmz"
+WAYPOINTS_CSV        <- "waypoints.csv"
+ROUTE_DIRECTIONS_CSV <- "route_directions.csv"
+TOTAL_ROUTE_KM       <- 984.6   # includes the ferry legs; refresh via prepare_route.R
 
 # ── Route geometry ────────────────────────────────────────────────────────────
 # The KMZ holds three LineStrings. Two of the three ferry crossings appear as a
@@ -147,8 +152,8 @@ next_sailing <- function(sailings, leg_code, after) {
   s[1, ]
 }
 
-simulate <- function(prof, sailings, total_km = NULL) {
-  trk_km   <- if (is.null(total_km)) 984.6 else total_km
+simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
+  trk_km   <- total_km
   eff_kmh  <- prof$moving_kmh * (1 - prof$stop_frac)
   now      <- RACE_START
   km       <- 0
@@ -225,8 +230,7 @@ simulate <- function(prof, sailings, total_km = NULL) {
 # ── Standalone summary ────────────────────────────────────────────────────────
 
 if (sys.nframe() == 0) {
-  trk <- read_track()
-  cat(sprintf("Route: %.1f km total (incl. ferry legs)\n", max(trk$km)))
+  cat(sprintf("Route: %.1f km total (incl. ferry legs)\n", TOTAL_ROUTE_KM))
   cat(sprintf("Race:  %s → %s (%d days)\n",
               format(RACE_START, "%a %d %b %Y %H:%M"),
               format(RACE_END,   "%a %d %b %Y %H:%M"), RACE_LIMIT_D))

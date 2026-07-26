@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — ilmaprognoos rajal
 
-> Genereeritud **2026-07-26 12:26 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
+> Genereeritud **2026-07-26 14:49 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
 
 **Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 19 päeva**
 
@@ -33,7 +33,7 @@ Rajasuund on sõidusuund selles punktis — vastutuul on tuul, mis puhub täpsel
 | 660 | Linnuse (Muhu) | 23° (KI) |
 | 698 | Kuivastu sadam | 145° (KA) |
 | 706 | Virtsu sadam | 65° (KI) |
-| 770 | Martna (Läänemaa) | 323° (LO) |
+| 770 | Martna (Läänemaa) | 324° (LO) |
 | 825 | Väike-Nõmmküla (Läänemaa) | 333° (LO) |
 | 880 | Pedase (Harjumaa) | 112° (I) |
 | 935 | Klooga | 125° (KA) |
