@@ -71,7 +71,17 @@ jobs:
           git add -- '*.md' '*.json'
           if git diff --cached --quiet; then
             echo "Nothing changed."
-          else
-            git commit -m "chore: ferry + weather update $(date -u +%Y-%m-%d)"
-            git push
+            exit 0
           fi
+          git commit -m "chore: ferry + weather update $(date -u +%Y-%m-%d)"
+          # Every report embeds its generation timestamp, so each run produces a
+          # diff and tries to push. Any commit that lands in between — a manual
+          # one, or a queued second run — then rejects this push as non-fast-
+          # forward, so rebase and retry rather than failing the job.
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push rejected (attempt $attempt), rebasing on origin/main ..."
+            git pull --rebase origin main
+          done
+          echo "Could not push after 3 attempts." >&2
+          exit 1
