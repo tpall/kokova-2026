@@ -1,3 +1,6 @@
+# GitHub renders the markdown reports itself — no need for pandoc output.
+*.html
+
 .Rproj.user/
 .Rhistory
 .RData
