@@ -1,11 +1,6 @@
 # GitHub renders the markdown reports itself — no need for pandoc output.
 *.html
 
-# The organiser's unreleased BETA track. Only prepare_route.R reads it; the
-# derived waypoints.csv and route_directions.csv are committed instead.
-*.kmz
-*.gpx
-
 .Rproj.user/
 .Rhistory
 .RData

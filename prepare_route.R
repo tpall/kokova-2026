@@ -1,9 +1,9 @@
 # Kõkõva 900 (2026) — derive the committed route files from the KMZ.
 #
 # Run this once whenever a new track arrives, then commit the two CSVs it
-# writes. The KMZ itself is the organiser's unreleased BETA file and is NOT
-# committed (see .gitignore), so every other script depends only on these
-# derivatives and the repo works without the track present.
+# writes. Keeping the geometry as committed derivatives means the daily CI job
+# does not re-parse 19 000 track points on every run, and the numbers that feed
+# the wind-exposure calculation can be diffed rather than silently recomputed.
 #
 #   waypoints.csv        21 waypoints: km, name, coordinates, elevation, type,
 #                        and the direction of travel at that point
@@ -25,8 +25,7 @@ suppressPackageStartupMessages({
 source("kokova_plan.R")
 
 if (!file.exists(KMZ_FILE)) {
-  stop("Need ", KMZ_FILE, " to regenerate the route files. It is deliberately\n",
-       "  not committed — get it from the organiser and place it in the project root.")
+  stop("Need ", KMZ_FILE, " in the project root to regenerate the route files.")
 }
 
 trk <- read_track()

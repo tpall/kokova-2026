@@ -20,9 +20,8 @@ RACE_START   <- as.POSIXct("2026-08-14 21:00:00", tz = TZ)
 RACE_LIMIT_D <- 7
 RACE_END     <- RACE_START + RACE_LIMIT_D * 86400   # Fri 21 Aug 21:00
 
-# The KMZ is the organiser's unreleased BETA track and is not committed. Only
-# prepare_route.R reads it; everything else uses the two derived CSVs below, so
-# the repo is self-contained without the track file.
+# Only prepare_route.R reads the KMZ; everything else uses the two derived CSVs
+# below, so the daily job never parses the track.
 KMZ_FILE             <- "kokova_2026_900_beta.kmz"
 WAYPOINTS_CSV        <- "waypoints.csv"
 ROUTE_DIRECTIONS_CSV <- "route_directions.csv"

@@ -44,18 +44,22 @@ Everything upstream of km 316.5 is really a race against one of these departures
 
 Run any of them with `Rscript <file>` from the project root.
 
-### The KMZ is not committed
+### Route geometry is a build step
 
-The repo is public, and `kokova_2026_900_beta.kmz` is the organiser's unreleased
-BETA track — it is gitignored along with `*.gpx`. Only `prepare_route.R` reads
-it; everything else depends solely on the two derived CSVs, which *are*
-committed. This is what lets CI run without the track present.
+The KMZ is committed, but only `prepare_route.R` reads it. It derives
+`waypoints.csv` (adding a `route_deg` column) and `route_directions.csv`, and
+the other three scripts read those instead of the track. Reasons: the daily CI
+job does not re-parse 19 000 track points on every run, and the geometry that
+feeds the wind-exposure numbers is committed where it can be inspected and
+diffed rather than recomputed silently.
 
-Consequence: **a fresh clone cannot regenerate the route files.** Get the KMZ
-from the organiser, drop it in the project root, then run `prepare_route.R`.
-The other three scripts work in a bare clone. `TOTAL_ROUTE_KM` in
-`kokova_plan.R` is a hardcoded constant for the same reason — refresh it from
-`prepare_route.R`'s output when a new track lands.
+`TOTAL_ROUTE_KM` in `kokova_plan.R` is a hardcoded constant for the same reason.
+
+**When a new KMZ lands, run `prepare_route.R` first**, then the other scripts,
+and check `TOTAL_ROUTE_KM` against its reported total. Waypoint names are
+hand-curated — reverse geocoding returns bare municipality names for much of
+Saaremaa — so `prepare_route.R` preserves the existing `name` and `km` columns
+and only recomputes geometry.
 
 ## Data sources and their quirks
 
