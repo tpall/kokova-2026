@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — mandriringi luuresõit
 
-> Genereeritud **2026-07-26 20:46 EEST** · plaan sõiduks **K 29.07 21:00**
+> Genereeritud **2026-07-26 20:58 EEST** · plaan sõiduks **K 29.07 21:00**
 
 ## Miks
 
@@ -53,7 +53,11 @@ Lisaks: **proovi läbi 90 g süsivesikuid tunnis.** Treeninguprojektis ei ole ü
 
 Öösel on lahti ainult ööpäevaringsed. Väljasõidul on neid 12, viimane km 130,3 (Krooning Risti tankla).
 
-**Pärast seda on 51 km Rohukülani ilma garanteeritud varustuseta.** Sama kehtib võistlusel.
+**Pärast seda on 51 km Rohukülani ilma garanteeritud varustuseta rajal.** Sama kehtib võistlusel.
+
+Ainus väljapääs sellel lõigul on **Haapsalu, ~6 km rajast kõrval km 179,8 juures** (24/7 tanklad ja Rannarootsi Selver).
+Ta ei ole varustusandmetes, sest Overpassi päring korjab ainult 1,5 km rajast — linnad, millest rada mööda hiilib, jäävad nähtamatuks.
+Võistlusel on see 12 km edasi-tagasi vahetult enne praami; luuresõidul on see lihtsalt hea teada.
 
 | km | Tüüp | Nimi | Lahtiolek |
 |---:|------|------|-----------|

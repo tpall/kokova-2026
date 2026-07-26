@@ -103,6 +103,13 @@ and only recomputes geometry.
   documented contract here — if it breaks, fall back to the site itself.
 - **Open-Meteo** returns ragged series: `precipitation_probability_max` stops
   short of the other daily fields, so columns are padded before binding.
+- **Overpass** is queried along a 1.5 km corridor (`RADIUS_M` in `R/resupply.R`).
+  That is the main known blind spot in the resupply data: a town the route
+  skirts is invisible. Haapsalu is the worked example — 6 km off the outbound
+  leg at km 179.8, so it does not appear at all for the last 51 km before the
+  Rohuküla quay, even though it is the only real bail-out there. Widen the
+  radius or add a targeted query before trusting "no resupply" over a stretch
+  that passes near a town.
 
 ## Modelling notes
 

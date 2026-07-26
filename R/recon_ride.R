@@ -119,8 +119,12 @@ md <- c(
   sprintf("Öösel on lahti ainult ööpäevaringsed. Väljasõidul on neid %d, viimane km %s (%s).",
           sum(night_stock$open247), num_et(last247$km, 1), last247$name),
   "",
-  sprintf("**Pärast seda on %s km Rohukülani ilma garanteeritud varustuseta.** Sama kehtib võistlusel.",
+  sprintf("**Pärast seda on %s km Rohukülani ilma garanteeritud varustuseta rajal.** Sama kehtib võistlusel.",
           num_et(gap_after_last, 0)),
+  "",
+  "Ainus väljapääs sellel lõigul on **Haapsalu, ~6 km rajast kõrval km 179,8 juures** (24/7 tanklad ja Rannarootsi Selver).",
+  "Ta ei ole varustusandmetes, sest Overpassi päring korjab ainult 1,5 km rajast — linnad, millest rada mööda hiilib, jäävad nähtamatuks.",
+  "Võistlusel on see 12 km edasi-tagasi vahetult enne praami; luuresõidul on see lihtsalt hea teada.",
   "",
   "| km | Tüüp | Nimi | Lahtiolek |",
   "|---:|------|------|-----------|")
