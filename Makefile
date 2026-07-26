@@ -10,7 +10,7 @@ TRACK := data/kokova_2026_900_beta.kmz
 # macOS still ships 3.81.
 ROUTE := data/waypoints.csv
 
-.PHONY: all daily ferry forecast outlook route resupply strategy clean-reports
+.PHONY: all daily ferry forecast outlook route resupply strategy recon clean-reports
 
 # The daily targets. The climatology outlook is deliberately excluded: it reads
 # ten years of ERA5 and its numbers barely move, so it is a manual step. So is
@@ -56,6 +56,10 @@ data/resupply.csv: $(TRACK) R/resupply.R R/plan.R
 strategy:
 	$(R) R/race_strategy.R
 	$(R) R/resupply_plan.R
+
+# One-off plan for the 29-31 Jul recon ride; regenerate if the route changes.
+recon:
+	$(R) R/recon_ride.R
 
 clean-reports:
 	rm -f reports/*.md output/*.json

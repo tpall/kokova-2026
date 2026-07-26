@@ -13,6 +13,7 @@ rada ~985 km (millest ~954 km sõidetakse, ülejäänu on praamid).
 | [`reports/weather_forecast.md`](reports/weather_forecast.md) | Elav 16-päevane prognoos rajapunktides — täitub, kui start jõuab prognoosiaknasse (~30. juuli) |
 | [`reports/race_strategy.md`](reports/race_strategy.md) | Võistlusstrateegia: vorm, võimsus, uni ja see, millist tempot Sõru praam nõuab |
 | [`reports/resupply.md`](reports/resupply.md) | Varustuspunktid, lahtiolekuajad, ööpäevaringsete vahed ja toitlustus |
+| [`reports/recon_ride.md`](reports/recon_ride.md) | Mandriringi luuresõit 29.–31. juulil: mida mõõta ja mis sihtaeg |
 
 ## Peamine järeldus
 
@@ -46,6 +47,7 @@ make daily      # praamid + prognoos + strateegia (see, mida CI iga päev teeb)
 make outlook    # ERA5 kliimaülevaade (aeglane, ~1 min; muutub harva)
 make route      # tuletatud rajageomeetria, kui KMZ on uuenenud
 make resupply   # varustuspunktid OSM-ist (aeglane, ~10 min; ainult raja muutudes)
+make recon      # luuresõidu plaan
 make all        # kõik ülalolev
 ```
 
