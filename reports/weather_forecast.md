@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — ilmaprognoos rajal
 
-> Genereeritud **2026-07-26 15:04 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
+> Genereeritud **2026-07-26 15:14 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
 
 **Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 19 päeva**
 
@@ -41,6 +41,6 @@ Rajasuund on sõidusuund selles punktis — vastutuul on tuul, mis puhub täpsel
 
 ---
 
-Generaator [`weather_forecast.R`](weather_forecast.R) · toorandmed [`weather_forecast.json`](weather_forecast.json) · 
+Generaator [`R/weather_forecast.R`](../R/weather_forecast.R) · toorandmed [`output/weather_forecast.json`](../output/weather_forecast.json) · 
 kliimataust [`weather_outlook.md`](weather_outlook.md) · praamid [`ferry_plan.md`](ferry_plan.md)
 

@@ -12,8 +12,9 @@ on:
         default: false
   push:
     paths:
-      - '*.R'
-      - waypoints.csv
+      - 'R/**'
+      - Makefile
+      - data/**
       - .github/workflows/daily-update.yml
 
 permissions:
@@ -54,21 +55,18 @@ jobs:
             httr2
             jsonlite
 
-      - name: Ferry schedules
-        run: Rscript ferry_schedule.R
-
-      - name: Weather forecast
-        run: Rscript weather_forecast.R
+      - name: Ferry schedules and weather forecast
+        run: make daily
 
       - name: Climatology outlook
         if: inputs.run_outlook
-        run: Rscript weather_outlook.R
+        run: make outlook
 
       - name: Commit and push if changed
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- '*.md' '*.json'
+          git add -- reports output data
           if git diff --cached --quiet; then
             echo "Nothing changed."
             exit 0

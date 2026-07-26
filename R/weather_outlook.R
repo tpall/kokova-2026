@@ -20,10 +20,10 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-source("kokova_plan.R")
+source("R/plan.R")
 
-OUT_MD   <- "weather_outlook.md"
-OUT_JSON <- "weather_outlook.json"
+OUT_MD   <- file.path(DIR_REPORTS, "weather_outlook.md")
+OUT_JSON <- file.path(DIR_OUTPUT,  "weather_outlook.json")
 
 YEARS   <- 2016:2025
 MD_FROM <- "08-14"
@@ -209,7 +209,7 @@ for (i in order(-dir_weight$share)) {
 }
 
 md <- c(md, "", "---", "",
-  "Generaator [`weather_outlook.R`](weather_outlook.R) · toorandmed [`weather_outlook.json`](weather_outlook.json) · ",
+  "Generaator [`R/weather_outlook.R`](../R/weather_outlook.R) · toorandmed [`output/weather_outlook.json`](../output/weather_outlook.json) · ",
   "elav prognoos [`weather_forecast.md`](weather_forecast.md) · praamid [`ferry_plan.md`](ferry_plan.md)",
   "")
 

@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — kliimaülevaade (14.–21. august)
 
-> Genereeritud **2026-07-26 14:49 EEST** · allikas ERA5 reanalüüs [Open-Meteo Archive](https://open-meteo.com) · aastad 2016–2025
+> Genereeritud **2026-07-26 15:14 EEST** · allikas ERA5 reanalüüs [Open-Meteo Archive](https://open-meteo.com) · aastad 2016–2025
 
 Mida augusti keskpaik sellel rajal tavaliselt teeb. Elav prognoos on failis [`weather_forecast.md`](weather_forecast.md) — see täitub, kui start jõuab 16-päevasesse aknasse.
 
@@ -51,6 +51,6 @@ Ring on suletud, nii et vastu- ja pärituul enam-vähem tasakaalustuvad — aga 
 
 ---
 
-Generaator [`weather_outlook.R`](weather_outlook.R) · toorandmed [`weather_outlook.json`](weather_outlook.json) · 
+Generaator [`R/weather_outlook.R`](../R/weather_outlook.R) · toorandmed [`output/weather_outlook.json`](../output/weather_outlook.json) · 
 elav prognoos [`weather_forecast.md`](weather_forecast.md) · praamid [`ferry_plan.md`](ferry_plan.md)
 

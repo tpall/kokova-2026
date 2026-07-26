@@ -19,10 +19,10 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-source("kokova_plan.R")
+source("R/plan.R")
 
-OUT_JSON <- "ferries.json"
-OUT_MD   <- "ferry_plan.md"
+OUT_JSON <- file.path(DIR_OUTPUT,  "ferries.json")
+OUT_MD   <- file.path(DIR_REPORTS, "ferry_plan.md")
 
 UA <- "kokova-2026-route-planner/1.0 (+https://www.panepanepane.ee/k6k6va)"
 
@@ -290,7 +290,7 @@ md <- c(md, "",
   "## Soovituslikud praamid profiili kaupa",
   "",
   "Mudel: sõidukiirus miinus peatuste osakaal, öine uni profiili kellaajal, sadamas oodatakse järgmist väljumist.",
-  "Parameetrid on `kokova_plan.R` failis (`PROFILES`).",
+  "Parameetrid on `R/plan.R` failis (`PROFILES`).",
   "")
 
 for (s in sims) {
@@ -315,8 +315,8 @@ for (s in sims) {
 md <- c(md, "",
   "---",
   "",
-  "Generaator [`ferry_schedule.R`](ferry_schedule.R) · toorandmed [`ferries.json`](ferries.json) · ",
-  "rajamudel [`kokova_plan.R`](kokova_plan.R)",
+  "Generaator [`R/ferry_schedule.R`](../R/ferry_schedule.R) · toorandmed [`output/ferries.json`](../output/ferries.json) · ",
+  "rajamudel [`R/plan.R`](../R/plan.R)",
   "")
 
 writeLines(md, OUT_MD)

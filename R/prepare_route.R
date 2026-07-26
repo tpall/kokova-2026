@@ -22,7 +22,7 @@ suppressPackageStartupMessages({
   library(readr)
 })
 
-source("kokova_plan.R")
+source("R/plan.R")
 
 if (!file.exists(KMZ_FILE)) {
   stop("Need ", KMZ_FILE, " in the project root to regenerate the route files.")

@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — praamiplaan
 
-> Genereeritud **2026-07-26 15:04 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
+> Genereeritud **2026-07-26 15:14 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** ~985 km
 
@@ -84,7 +84,7 @@ Veerud näitavad viimast Rohuküla praami, millega vastavas tempos (Keskmik 17.6
 ## Soovituslikud praamid profiili kaupa
 
 Mudel: sõidukiirus miinus peatuste osakaal, öine uni profiili kellaajal, sadamas oodatakse järgmist väljumist.
-Parameetrid on `kokova_plan.R` failis (`PROFILES`).
+Parameetrid on `R/plan.R` failis (`PROFILES`).
 
 
 ### Terav ots — 25.0 km/h sõidus, 3.5 h und, ~10% peatusi
@@ -129,6 +129,6 @@ Lõpetab **R 21.08 11:33** (158 h 33 min, limiidini 9 h).
 
 ---
 
-Generaator [`ferry_schedule.R`](ferry_schedule.R) · toorandmed [`ferries.json`](ferries.json) · 
-rajamudel [`kokova_plan.R`](kokova_plan.R)
+Generaator [`R/ferry_schedule.R`](../R/ferry_schedule.R) · toorandmed [`output/ferries.json`](../output/ferries.json) · 
+rajamudel [`R/plan.R`](../R/plan.R)
 

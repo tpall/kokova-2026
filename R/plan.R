@@ -20,11 +20,17 @@ RACE_START   <- as.POSIXct("2026-08-14 21:00:00", tz = TZ)
 RACE_LIMIT_D <- 7
 RACE_END     <- RACE_START + RACE_LIMIT_D * 86400   # Fri 21 Aug 21:00
 
+# All paths are relative to the project root — scripts are run from there, either
+# directly (`Rscript R/ferry_schedule.R`) or via the Makefile.
+DIR_DATA    <- "data"      # route definition: the track, and geometry derived from it
+DIR_OUTPUT  <- "output"    # machine-readable results, regenerated on every run
+DIR_REPORTS <- "reports"   # the human-facing markdown
+
 # Only prepare_route.R reads the KMZ; everything else uses the two derived CSVs
 # below, so the daily job never parses the track.
-KMZ_FILE             <- "kokova_2026_900_beta.kmz"
-WAYPOINTS_CSV        <- "waypoints.csv"
-ROUTE_DIRECTIONS_CSV <- "route_directions.csv"
+KMZ_FILE             <- file.path(DIR_DATA, "kokova_2026_900_beta.kmz")
+WAYPOINTS_CSV        <- file.path(DIR_DATA, "waypoints.csv")
+ROUTE_DIRECTIONS_CSV <- file.path(DIR_DATA, "route_directions.csv")
 TOTAL_ROUTE_KM       <- 984.6   # includes the ferry legs; refresh via prepare_route.R
 
 # ── Route geometry ────────────────────────────────────────────────────────────

@@ -16,10 +16,10 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-source("kokova_plan.R")
+source("R/plan.R")
 
-OUT_MD   <- "weather_forecast.md"
-OUT_JSON <- "weather_forecast.json"
+OUT_MD   <- file.path(DIR_REPORTS, "weather_forecast.md")
+OUT_JSON <- file.path(DIR_OUTPUT,  "weather_forecast.json")
 
 NIGHT_START_H       <- 23      # nights are short in August; riders roll late
 NIGHT_END_H         <- 6
@@ -256,7 +256,7 @@ if (nrow(race_rows) == 0) {
 }
 
 md <- c(md, "", "---", "",
-  "Generaator [`weather_forecast.R`](weather_forecast.R) · toorandmed [`weather_forecast.json`](weather_forecast.json) · ",
+  "Generaator [`R/weather_forecast.R`](../R/weather_forecast.R) · toorandmed [`output/weather_forecast.json`](../output/weather_forecast.json) · ",
   "kliimataust [`weather_outlook.md`](weather_outlook.md) · praamid [`ferry_plan.md`](ferry_plan.md)",
   "")
 
