@@ -1,8 +1,8 @@
 # Kõkõva 900 · 2026 — ilmaprognoos rajal
 
-> Genereeritud **2026-07-26 21:23 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
+> Genereeritud **2026-07-27 10:29 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
 
-**Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 19 päeva**
+**Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 18 päeva**
 
 Tuulesuund on antud rajasuuna suhtes: **vastu** (±45°), **külg**, **päri**.
 Rada on lauge ja lage — tuul on ainus reljeef, mis siin loeb.
