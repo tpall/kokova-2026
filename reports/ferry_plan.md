@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — praamiplaan
 
-> Genereeritud **2026-07-27 10:29 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
+> Genereeritud **2026-07-28 08:23 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** ~985 km
 
