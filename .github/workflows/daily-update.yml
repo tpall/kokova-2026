@@ -13,6 +13,7 @@ on:
   push:
     paths:
       - 'R/**'
+      - 'gpsweather/**'
       - Makefile
       - data/**
       - .github/workflows/daily-update.yml
@@ -55,7 +56,15 @@ jobs:
             httr2
             jsonlite
 
-      - name: Ferry schedules and weather forecast
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Python dependencies (route outlook)
+        run: pip install numpy requests
+
+      - name: Ferry schedules, weather forecast, route outlook
         run: make daily
 
       - name: Climatology outlook

@@ -1,0 +1,16 @@
+{
+ "_provenance": "Physics + duty cycle: TBR 2026 FITs via calibrate_tbr.py --fit-glob (27 Jul 2026). crr: Estonian paved, measured from Kokova 2025 day-1 power (cda 0.36 held; TBR rough-track crr was 0.023). Stop ramp: fresh 35 min/100km measured on Kokova 2025 first night, steady 140 from TBR average; delay/ramp shape is a HEURISTIC fitted to those two points.",
+ "power_w": 167.0,
+ "mass_kg": 95.0,
+ "cda": 0.36,
+ "crr": 0.0125,
+ "daily_ride_h": 14.4,
+ "sleep_h": 7.2,
+ "stop_min_per_100km": 140.0,
+ "stop_min_per_100km_fresh": 35.0,
+ "stop_ramp_delay_h": 10.0,
+ "stop_ramp_h": 12.0,
+ "day_descent_cap_ms": 12.1,
+ "fatigue_per_100h": 0.63,
+ "night_power_factor": 0.85
+}

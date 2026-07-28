@@ -10,12 +10,16 @@ TRACK := data/kokova_2026_900_beta.kmz
 # macOS still ships 3.81.
 ROUTE := data/waypoints.csv
 
-.PHONY: all daily ferry forecast outlook route resupply surface strategy recon clean-reports
+PY := python3
+
+.PHONY: all daily ferry forecast outlook route route-outlook resupply surface strategy recon clean-reports
 
 # The daily targets. The climatology outlook is deliberately excluded: it reads
 # ten years of ERA5 and its numbers barely move, so it is a manual step. So is
 # resupply, which hammers Overpass and only changes when the route does.
-daily: ferry forecast strategy
+# route-outlook is listed after ferry on purpose: it reads the sailings that
+# ferry_schedule.R just refreshed (serial make preserves the order).
+daily: ferry forecast strategy route-outlook
 
 all: route resupply surface daily outlook
 
@@ -31,6 +35,18 @@ forecast: route
 
 outlook: route
 	$(R) R/weather_outlook.R
+
+# Probabilistic route outlook from the vendored gps-weather engine (see
+# gpsweather/VENDORED.md): ensemble weather x rider Monte Carlo -> ferry-catch
+# odds, exposure and a conditions timeline at the rider's likely position.
+# Reads the KMZ directly and the live sailings from output/ferries.json.
+# Before ~1 Aug the race start is beyond the 15-day ensemble horizon; the
+# report then carries a loud placeholder warning instead of failing.
+route-outlook:
+	$(PY) gpsweather/outlook.py $(TRACK) --start 2026-08-14T18:00 \
+	  --rider gpsweather/rider_taavi.json --ferries output/ferries.json \
+	  --riders 12 --label "Kõkõva 900 — route weather outlook" \
+	  --out-md reports/route_outlook.md --out-json output/route_outlook.json
 
 # Route geometry is the one genuine file dependency: it is derived from the
 # track rather than fetched, so it rebuilds only when a new KMZ lands.

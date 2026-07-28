@@ -30,6 +30,16 @@ runs 08:15 / 11:00 / 18:30, and **from Tue 18 Aug only 08:15 and 17:30** — a
 9.25 h gap. Missing the evening sailing on the first full day costs ~13.75 h.
 Everything upstream of km 316.5 is really a race against one of these departures.
 
+## Route weather outlook (gpsweather/)
+
+`make route-outlook` (part of `daily`, runs in the GA after the ferry refresh):
+vendored copy of the generic `~/Projects/gps-weather` engine (see
+`gpsweather/VENDORED.md` — develop there, re-copy here). Ensemble weather ×
+calibrated-rider Monte Carlo over the actual KMZ + live sailings →
+`reports/route_outlook.md` + `output/route_outlook.json`: ferry-catch odds,
+exposure quantiles, 6-h conditions timeline. Before ~1 Aug the start is beyond
+the 15-day ECMWF horizon and the report says so instead of failing.
+
 ## Scripts
 
 ```
