@@ -57,7 +57,7 @@ jobs:
             jsonlite
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -88,7 +88,11 @@ jobs:
           for attempt in 1 2 3; do
             if git push; then exit 0; fi
             echo "Push rejected (attempt $attempt), rebasing on origin/main ..."
-            git pull --rebase origin main
+            # Any conflict is between two regenerations of the same output
+            # files, where this run's version is the newer one — during a
+            # rebase, -X theirs keeps the replayed (our) side. Abort a
+            # half-applied rebase so the next attempt starts clean.
+            git pull --rebase -X theirs origin main || git rebase --abort
           done
           echo "Could not push after 3 attempts." >&2
           exit 1
