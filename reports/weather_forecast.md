@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — ilmaprognoos rajal
 
-> Genereeritud **2026-07-28 08:23 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
+> Genereeritud **2026-07-28 09:25 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
 
 **Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 17 päeva**
 
