@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-07-29T15:18:38Z",
+  "generated_utc": "2026-07-29T16:25:18Z",
   "race_start": "2026-08-14T21:00:00+0300",
   "ferries": [
     {
@@ -22,7 +22,7 @@
       "crossing_min": 35,
       "operator": "Kihnu Veeteed",
       "source": "veeteed.com",
-      "onboard": "kinnitamata"
+      "onboard": "väike müük (juhend)"
     },
     {
       "leg": "KUI-VIR",
