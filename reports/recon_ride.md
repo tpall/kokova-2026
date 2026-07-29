@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — mandriringi luuresõit
 
-> Genereeritud **2026-07-29 19:10 EEST** · plaan sõiduks **N 30.07 21:00**
+> Genereeritud **2026-07-29 19:21 EEST** · plaan sõiduks **N 30.07 21:00**
 
 ## Miks
 
@@ -30,7 +30,9 @@ Sõida neljapäeva õhtul **kell 21:00**, sama kellaaeg mis võistlusel. Siis on
 Külmetuse reegel enne starti: ainult kaelast-ülal sümptomid ja needki taandumas. Haigena mõõdetud tempo on vale number — see alahindab su võistlusvormi ja teeb kogu praamivärava analüüsi pessimistlikuks. Pigem lükka veel päev edasi kui sõida poolhaigena.
 
 **Sihtaeg Rohukülla: R 31.07 06:15** — see on 06:30 praam miinus 15 min pardaleminekut, ehk 9,2 tundi stardist.
-See nõuab **18,7 km/h elapsed** (kõik peatused sees). Võistlusel on esimesed 11 km neutraliseeritud (~30 min), nii et päris rajal on latt isegi veidi leebem kui täna öösel omapäi.
+See nõuab **18,7 km/h elapsed** (kõik peatused sees). Võistlusel on esimesed 11 km neutraliseeritud (~30 min), nii et päris rajal on latt isegi veidi leebem kui omapäi sõites.
+
+**Kui stardid hoopis hommikul** (nt kui enesetunne on hommikul sõidukorras ja tahad kohe minna): mõõt on seesama, ainult kellaajast lahti — **173 km kuni 9,2 tunniga** ehk 18,7 km/h elapsed. Päevasel sõidul on poed lahti ja valge; loe tulemus paari protsendi võrra optimistlikuks võistluse öise versiooni suhtes ja jäta meelde, et öine 24/7-punktide kontroll jääb siis tegemata.
 
 | Kui jõuad | Siis võistlusel | Tähendus |
 |-----------|-----------------|----------|
