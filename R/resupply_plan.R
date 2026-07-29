@@ -23,7 +23,7 @@ OUT_MD      <- file.path(DIR_REPORTS, "resupply.md")
 RESUPPLY_CSV <- file.path(DIR_DATA, "resupply.csv")
 if (!file.exists(RESUPPLY_CSV)) stop("Run `make resupply` first — need ", RESUPPLY_CSV)
 
-# 700 m was too tight: at Haapsalu (km 798) it kept the Coop at 600 m and threw
+# 700 m was too tight: at Haapsalu (km ~790) it kept the Coop at 600 m and threw
 # away Rannarootsi Selver at 988 m and two 24/7 filling stations at ~950 m. A
 # 1.2 km detour is 2.4 km round trip — worth it for a supermarket before an
 # island section.

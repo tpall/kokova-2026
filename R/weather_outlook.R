@@ -31,10 +31,10 @@ MD_TO   <- "08-21"
 
 # One request per anchor per year; keep the anchor list short enough that the
 # whole run stays under a couple of minutes against the free archive API.
-ANCHOR_KM <- c(0, 181.6, 204.2, 316.5, 385, 495, 698.5, 770)
+ANCHOR_KM <- c(0, 172.7, 195.2, 368.4, 438.7, 527, 692.2, 763.7)
 
 # Both route geometry inputs come from the committed CSVs written by
-# prepare_route.R, so this script never needs the (uncommitted) KMZ.
+# prepare_route.R, so this script never touches the track itself.
 waypoints <- read_csv(WAYPOINTS_CSV, show_col_types = FALSE)
 stopifnot("route_deg" %in% names(waypoints))
 anchors   <- waypoints |> filter(km %in% ANCHOR_KM)

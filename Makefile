@@ -3,11 +3,15 @@
 
 R := Rscript
 
-TRACK := data/kokova_2026_900_beta.kmz
-# prepare_route.R writes waypoints.csv and route_directions.csv in one pass, so
-# waypoints.csv stands in for the pair. Listing both as targets of one rule would
-# run the recipe once per file, and grouped targets (&:) need make 4.3 while
-# macOS still ships 3.81.
+# The merged track prepare_route.R writes from the three organiser GPX parts.
+TRACK   := data/kokova_2026_900_final.gpx
+SRC_GPX := data/kokova_2026_900_final_1.gpx \
+           data/kokova_2026_900_final_2.gpx \
+           data/kokova_2026_900_final_3.gpx
+# prepare_route.R writes $(TRACK), waypoints.csv and route_directions.csv in one
+# pass, so waypoints.csv stands in for the trio. Listing them as targets of one
+# rule would run the recipe once per file, and grouped targets (&:) need
+# make 4.3 while macOS still ships 3.81.
 ROUTE := data/waypoints.csv
 
 PY := python3
@@ -39,7 +43,7 @@ outlook: route
 # Probabilistic route outlook from the vendored gps-weather engine (see
 # gpsweather/VENDORED.md): ensemble weather x rider Monte Carlo -> ferry-catch
 # odds, exposure and a conditions timeline at the rider's likely position.
-# Reads the KMZ directly and the live sailings from output/ferries.json.
+# Reads the merged track directly and the live sailings from output/ferries.json.
 # Before ~1 Aug the race start is beyond the 15-day ensemble horizon; the
 # report then carries a loud placeholder warning instead of failing.
 route-outlook:
@@ -49,17 +53,18 @@ route-outlook:
 	  --out-md reports/route_outlook.md --out-json output/route_outlook.json
 
 # Route geometry is the one genuine file dependency: it is derived from the
-# track rather than fetched, so it rebuilds only when a new KMZ lands.
+# track rather than fetched, so it rebuilds only when new route parts land.
 route: $(ROUTE)
 
-$(ROUTE): $(TRACK) R/prepare_route.R R/plan.R
+$(ROUTE): $(SRC_GPX) R/prepare_route.R R/plan.R
 	$(R) R/prepare_route.R
 
 # Resupply is route-derived too, but kept out of `route` so a track refresh does
-# not fire ~10 throttled Overpass queries unless asked.
+# not fire ~10 throttled Overpass queries unless asked. Depends on $(ROUTE), not
+# $(TRACK): the same recipe writes both, and only $(ROUTE) has a rule.
 resupply: data/resupply.csv
 
-data/resupply.csv: $(TRACK) R/resupply.R R/plan.R
+data/resupply.csv: $(ROUTE) R/resupply.R R/plan.R
 	$(R) R/resupply.R
 
 # Strategy is part of `daily`: it embeds ferry times, which move with the
@@ -76,7 +81,7 @@ strategy:
 # Surface needs a ~120 MB Geofabrik extract, cached under cache/ and gitignored.
 surface: data/surface.csv
 
-data/surface.csv: $(TRACK) R/surface.R R/plan.R
+data/surface.csv: $(ROUTE) R/surface.R R/plan.R
 	$(R) R/surface.R
 
 # One-off plan for the 29-31 Jul recon ride; regenerate if the route changes.

@@ -37,7 +37,10 @@ surf_share <- function(from, to) {
   if (is.null(surface)) return(NULL)
   d <- surface |> filter(km > from, km <= to)
   if (!nrow(d)) return(NULL)
-  d |> count(klass) |> mutate(pct = 100 * n / sum(n)) |>
+  # "asfalt (eeldus)" and friends — surfaces inferred from the road class when
+  # the way carries no tag — count with their parent class here.
+  d |> mutate(klass = sub(" \\(eeldus\\)$", "", klass)) |>
+    count(klass) |> mutate(pct = 100 * n / sum(n)) |>
     select(klass, pct) |> tidyr::pivot_wider(names_from = klass, values_from = pct)
 }
 
@@ -55,20 +58,31 @@ ferry_of <- function(sim, leg) {
 me      <- sims[["Taavi 2026 ootus"]]
 me_2025 <- sims[["Taavi 2025 tempo"]]
 
-sor_leg    <- ferry_of(me, "Sõru→Triigi")
-sor_wait_h <- as.numeric(difftime(sor_leg$until - FERRIES$crossing_min[2] * 60,
-                                  sor_leg$time, units = "hours"))
+sor_leg  <- ferry_of(me, "Sõru→Triigi")
+sor_2025 <- ferry_of(me_2025, "Sõru→Triigi")
+
+# What missing the Saturday evening sailing actually costs: the departure gap
+# to the next boat out of Sõru.
+SAT_EVENING <- sailings |>
+  filter(leg == "SOR-TRI", date == as.Date("2026-08-15")) |>
+  arrange(depart) |> slice(n()) |> pull(depart)
+GAP_H <- sailings |>
+  filter(leg == "SOR-TRI", depart > SAT_EVENING) |>
+  summarise(h = as.numeric(difftime(min(depart), SAT_EVENING, units = "hours"))) |>
+  pull(h)
 
 # ── The Sõru gate, for this rider specifically ────────────────────────────────
 # Work backwards from each Saturday sailing to the last Rohuküla ferry that
-# still reaches it, at the rider's own modelled pace.
+# still reaches it, at the rider's own modelled pace. The whole run to Sõru
+# happens before the first sleep, so the opening-push speed is the one in play.
 
 HEL_TO_SOR <- FERRIES$km_from[FERRIES$leg == "SOR-TRI"] - FERRIES$km_to[FERRIES$leg == "ROH-HEL"]
 TAL_TO_ROH <- FERRIES$km_from[FERRIES$leg == "ROH-HEL"]
+RIDDEN_KM  <- TOTAL_ROUTE_KM - sum(FERRIES$km_to - FERRIES$km_from)
 BOARD_BUF  <- 0.25
 
 prof_me   <- PROFILES |> filter(profile == "Taavi 2026 ootus")
-eff_push  <- prof_me$moving_kmh * (1 - prof_me$push_frac)
+eff_push  <- prof_me$push_kmh * (1 - prof_me$push_frac)
 
 roh <- sailings |> filter(leg == "ROH-HEL") |> arrange(depart) |>
   mutate(arrive_hel = depart + FERRIES$crossing_min[FERRIES$leg == "ROH-HEL"] * 60)
@@ -101,20 +115,22 @@ gate <- map_dfr(seq_len(nrow(sor_sat)), function(i) {
                                                last$arrive_hel, units = "hours"))
   )
 }) |>
-  filter(tal_kmh <= MAX_PLAUSIBLE_KMH)
+  # A candidate Rohuküla ferry that departs before the race start shows up as a
+  # negative pace; drop it along with the superhuman ones.
+  filter(tal_kmh > 0, tal_kmh <= MAX_PLAUSIBLE_KMH)
 
 # ── Break-even opening speed ──────────────────────────────────────────────────
-# The actionable number is not "ride faster" in the abstract but the moving
-# speed that just makes the Saturday evening sailing, at a given stop discipline.
-# Solved by bisection on the simulation itself so it accounts for the ferry
-# waits rather than assuming a clean run.
+# The actionable number is not "ride faster" in the abstract but the opening
+# moving speed that just makes the Saturday evening sailing, at a given stop
+# discipline. Bisection runs on push_kmh because the whole Tallinn → Sõru run
+# happens before the first sleep — moving_kmh never enters it. Solved on the
+# simulation itself so it accounts for the ferry waits, the neutralised start
+# and the Hiiumaa leg rather than assuming a clean run.
 
-SAT_EVENING <- sor_sat$depart[which(format(sor_sat$depart, "%H:%M") == "18:30")]
-
-makes_evening <- function(moving_kmh, push_frac) {
+makes_evening <- function(push_kmh, push_frac) {
   p <- prof_me
-  p$moving_kmh <- moving_kmh
-  p$push_frac  <- push_frac
+  p$push_kmh  <- push_kmh
+  p$push_frac <- push_frac
   f <- ferry_of(simulate(p, sailings), "Sõru→Triigi")
   !is.null(f) && abs(as.numeric(difftime(f$until - FERRIES$crossing_min[2] * 60,
                                          SAT_EVENING, units = "mins"))) < 1
@@ -137,25 +153,31 @@ be <- tibble(
   need_kmh  = vapply(c(0.10, 0.06, 0.03), breakeven, numeric(1))
 )
 
-# ── What each Rohuküla sailing actually buys ─────────────────────────────────
-# Every option below lands the same 18:30 Sõru sailing, so arriving at the quay
-# earlier does not put the rider on Saaremaa earlier — it only lengthens the
-# wait at Sõru. That wait is forced, which makes it the cheapest sleep on the
-# route.
-HIIUMAA_KMH <- 15    # elapsed pace Heltermaa → Sõru, gravel with kit
+# ── What each Rohuküla sailing actually demands ──────────────────────────────
+# On the beta route every morning boat funnelled into the same 18:30 Sõru
+# sailing and the only question was how long you waited at the quay. The final
+# route put 173 km of Hiiumaa between the ferries, so the question flips: each
+# later Rohuküla boat leaves fewer hours for the same distance, and the pace it
+# demands is what separates the options.
 
 opts <- tibble(dep = as.POSIXct(paste("2026-08-15", c("06:30", "08:30", "10:00")), tz = TZ)) |>
   mutate(
     hel      = dep + FERRIES$crossing_min[FERRIES$leg == "ROH-HEL"] * 60,
-    sor      = hel + (HEL_TO_SOR / HIIUMAA_KMH) * 3600,
     need_kmh = TAL_TO_ROH / as.numeric(difftime(dep - BOARD_BUF * 3600, RACE_START, units = "hours")),
-    wait_h   = as.numeric(difftime(SAT_EVENING, sor, units = "hours")),
+    hii_h    = as.numeric(difftime(SAT_EVENING - BOARD_BUF * 3600, hel, units = "hours")),
+    hii_kmh  = HEL_TO_SOR / hii_h,
     dep_lbl  = format(dep, "%H:%M"),
-    hel_lbl  = format(hel, "%H:%M"),
-    sor_lbl  = format(sor, "%H:%M"),
-    wait_lbl = ifelse(wait_h < 0, sprintf("**%s min hiljaks**", num_et(-wait_h * 60, 0)),
-                      paste0(num_et(wait_h, 1), " h"))
+    hel_lbl  = format(hel, "%H:%M")
   )
+
+# Modelled arrival at the Rohuküla quay: the neutralised 11 km, then the
+# opening-push pace the rest of the way.
+arr_at_roh <- function(p) {
+  eff <- p$push_kmh * (1 - p$push_frac)
+  RACE_START + (NEUTRAL_H + (TAL_TO_ROH - NEUTRAL_KM) / eff) * 3600
+}
+arr_roh  <- arr_at_roh(prof_me)
+arr_2025 <- arr_at_roh(PROFILES |> filter(profile == "Taavi 2025 tempo"))
 
 # ── Report ────────────────────────────────────────────────────────────────────
 
@@ -167,53 +189,63 @@ md <- c(
   sprintf("> Genereeritud **%s** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)",
           format(Sys.time(), "%Y-%m-%d %H:%M %Z", tz = TZ)),
   "",
-  sprintf("**Start** %s Hundipea · **limiit** %d päeva → %s · **rada** %.0f km, ~1580 m tõusu",
-          fmt_et(RACE_START), RACE_LIMIT_D, fmt_et(RACE_END), TOTAL_ROUTE_KM),
+  sprintf("**Start** %s Hundipea · **limiit** %d päeva → %s · **rada** %.0f km (%.0f km sõitu + %.0f km praame), ~4000 m tõusu",
+          fmt_et(RACE_START), RACE_LIMIT_D, fmt_et(RACE_END),
+          TOTAL_ROUTE_KM, RIDDEN_KM, TOTAL_ROUTE_KM - RIDDEN_KM),
   "",
   "## Lühidalt",
   "",
-  "Rada on lauge. Kogu tõus 985 km peale on 1580 m — vähem kui TBR-i ühel päeval.",
-  "Sinu 2026. aasta suurim on-bike piiraja, tõusudel püsiva võimsuse hoidmine, siin praktiliselt ei rakendu.",
+  sprintf("Lõplik rada on beetast lühem (%.0f km sõitu), aga juhendi ~4000 m tõusuga läks beeta „lauge raja\" lubadus kaduma — 4,2 m/km on siiski TBR-i mõõdupuuga endiselt tasandik, nii et tõusudel püsiva võimsuse hoidmine ei ole ka siin piiraja.",
+          RIDDEN_KM),
   "",
-  "Selle võistluse otsustab **Sõru praam kilomeetril 316,5** — see sõidab võistlusaknas 2–3 korda päevas ja õhtusest mahajäämine maksab 13,4 h.",
-  "Avaetapi asfaldiga jõuad sinna välja; küsimus ei ole enam kas, vaid millise Rohuküla praamiga ja mida ooteajaga peale hakata.",
+  sprintf("Selle võistluse otsustab **Sõru praam kilomeetril %s** — see sõidab võistlusaknas 2–3 korda päevas ja laupäevaõhtusest mahajäämine maksab %s h.",
+          num_et(FERRIES$km_from[FERRIES$leg == "SOR-TRI"], 1), num_et(GAP_H, 1)),
+  sprintf("Ja lõplik rada muutis värava olemust: Heltermaa ja Sõru vahel on nüüd %s km Hiiumaad, mitte 112. Varane Rohuküla praam ei ole enam mugavusküsimus — see on ainus tee õhtusele Sõru praamile.",
+          num_et(HEL_TO_SOR, 0)),
   "",
-  "## Laupäevane Sõru praam — ja mida iga Rohuküla praam tegelikult ostab",
+  "## Laupäevane Sõru praam — ja mida iga Rohuküla praam tegelikult nõuab",
   "",
-  "Avaetapp on sinu sõnul suuresti asfalt, mis on mudelis nüüd eraldi kiirusena sees.",
-  "Sellega ei ole praamivärav enam piirav — aga see, millisele Rohuküla praamile jõuad, ei tähenda seda, mida ootaks.",
+  "Beeta-rajal viisid kõik kolm hommikust Rohuküla praami samale 18:30 Sõru praamile ja vahe oli ainult Sõru kai peal ootamises.",
+  "Lõplikul rajal jätab iga hilisem praam sama Hiiumaa jaoks vähem tunde:",
   "",
-  "| Rohuküla praam | Nõutav tempo stardist | Heltermaal | Sõrus (15 km/h Hiiumaal) | Ootamine Sõrus |",
-  "|----------------|----------------------:|------------|--------------------------|---------------:|",
-  paste0(sprintf("| **%s** | %s km/h elapsed | %s | %s | %s |",
+  "| Rohuküla praam | Nõutav tempo stardist | Heltermaal | Aega Sõru 18:30-ni | Nõutav tempo Hiiumaal |",
+  "|----------------|----------------------:|------------|-------------------:|----------------------:|",
+  paste0(sprintf("| **%s** | %s km/h elapsed | %s | %s h | %s km/h elapsed |",
                  opts$dep_lbl, num_et(opts$need_kmh, 1), opts$hel_lbl,
-                 opts$sor_lbl, opts$wait_lbl), collapse = "\n"),
+                 num_et(opts$hii_h, 1), num_et(opts$hii_kmh, 1)), collapse = "\n"),
   "",
-  "**Kõik kolm esimest jõuavad samale 18:30 Sõru praamile.** Varem Rohukülla jõudmine ei too sind Saaremaale varem —",
-  sprintf("see ainult pikendab ootamist Sõrus. 10:00 praam on juba kiivas: %s km/h Hiiumaal jätab sind %s minutit hiljaks.",
-          num_et(HIIUMAA_KMH, 0), num_et(-opts$wait_h[3] * 60, 0)),
+  sprintf("**06:30 praam on ainus, mille Hiiumaa-nõue (%s km/h elapsed, valdavalt kruusal) on sinu jaoks teostatav.** 08:30 praamilt nõuab Hiiumaa %s km/h — esigrupi number — ja 10:00 praamilt ei jõua 18:30-ks enam keegi.",
+          num_et(opts$hii_kmh[1], 1), num_et(opts$hii_kmh[2], 1)),
+  "Juhend ütleb sama viisakamalt: kahe esimese hommikuse praamiga saabujad „peaksid jõudma\" — see tingiv kõneviis teeb 08:30 praamil rasket tööd.",
   "",
-  sprintf("**Tegelik tähtaeg on %s Rohuküla praam.**", "08:30"),
+  "### Kus sina selles tabelis oled",
   "",
-  "### Ja siin on see, mida sellega peale hakata",
+  sprintf("Praeguse vormi mudel (%s km/h avaetapil, %d%% peatusi) toob su Rohukülla kell **%s** — 06:30 praam on läinud ja koos sellega laupäevane Sõru.",
+          num_et(prof_me$push_kmh, 1), round(100 * prof_me$push_frac), format(arr_roh, "%H:%M")),
+  sprintf("2025. aasta vormis (%s km/h, 6%% peatusi) oleksid kohal **%s** — praam kindlalt käes.",
+          num_et(PROFILES$push_kmh[PROFILES$profile == "Taavi 2025 tempo"], 1), format(arr_2025, "%H:%M")),
+  "Kogu strateegia taandub küsimusele, kumb number on tõele lähemal — täpselt seda mõõdab kolmapäevane luuresõit.",
   "",
-  sprintf("Kui jõuad 06:30 praamile, tekib Sõrus **%s tundi surnud aega**. See aeg on sunnitud — praam ei välju varem, ükskõik kui kiiresti sõidad.",
-          num_et(opts$wait_h[1], 1)),
+  "### Murdepunkt — avaetapi sõidutempo, mis 18:30 praami veel püüab",
   "",
-  sprintf("TBR-il seisid magamiseks %s h, et saada %s h und. Siin on uni **tasuta**: sa ootaksid niikuinii.",
-          num_et(ATHLETE$tbr$sleep_stopped_h, 1), num_et(ATHLETE$tbr$sleep_actual_h, 1)),
+  "| Peatuste distsipliin | Vajalik sõidutempo avaetapil |",
+  "|----------------------|-----------------------------:|",
+  paste0(sprintf("| %s | **%s km/h** |", be$label,
+                 ifelse(is.na(be$need_kmh), "ei õnnestu", num_et(be$need_kmh, 1))),
+         collapse = "\n"),
   "",
-  "| Variant | Triigis | Und selleks hetkeks | Hind |",
-  "|---------|---------|---------------------|------|",
-  sprintf("| 06:30 praam + uni Sõrus | 19:05 | **~%s h** | %s km/h avaetapil |",
-          num_et(max(0, opts$wait_h[1] - 0.5), 1), num_et(opts$need_kmh[1], 1)),
-  sprintf("| 08:30 praam, ei maga | 19:05 | 0 h | %s km/h avaetapil |", num_et(opts$need_kmh[2], 1)),
+  sprintf("Bisektsioon simulatsioonil endal — neutraliseeritud start, päris praamigraafik ja Hiiumaa lõik kõik sees. Võrdluseks: mudeli praegune eeldus on %s km/h, 2025. aasta mõõdetud avaetapp %s km/h.",
+          num_et(prof_me$push_kmh, 1),
+          num_et(PROFILES$push_kmh[PROFILES$profile == "Taavi 2025 tempo"], 1)),
   "",
-  "**Mõlemad jõuavad Triigisse kell 19:05.** Vahe on ainult selles, kas oled maganud.",
-  sprintf("Kaks tundi kõvemat sõitu avaetapil ostab %s tundi und, mis muidu läheks ootamisele.",
-          num_et(max(0, opts$wait_h[1] - 0.5), 1)),
+  "### Plaan A ja plaan B",
   "",
-  "### Kuidas see praam kätte saada",
+  "**Plaan A — luure näitab murdepunkti-tempot:** sõida esimene öö läbi, ole Rohukülas enne 06:15, Hiiumaa ühe hooga, 18:30 Sõru praam, maga Saaremaal.",
+  sprintf("**Plaan B — ei näita:** ära põleta end 08:30 praami nimel, see ei osta midagi — 18:30 jääb ikka püüdmata. Võta Hiiumaa rahulikult, maga korralikult (CP1 Palukülas km %s on köök ja dušid) ja ole pühapäeva 08:15 Sõru praamil. Hind: %s h hiljem Saaremaal, aga puhanuna ja ilma end esimese ööpäevaga tühjaks sõitmata.",
+          num_et(waypoints$km[waypoints$type == "cp"][1], 0), num_et(GAP_H, 1)),
+  "Otsus langeb luuresõidu järel, mitte võistlusel improviseerides.",
+  "",
+  "### Kuidas iga Sõru praam kätte saada",
   "",
   "Ainus tee Hiiumaale on Rohuküla praam, seega iga Sõru väljumine tähendab konkreetset viimast Rohuküla praami.",
   "",
@@ -231,9 +263,6 @@ md <- c(md, "",
           ATHLETE$y2025$leg1_km, num_et(ATHLETE$y2025$leg1_h, 1),
           num_et(ATHLETE$y2025$leg1_km / ATHLETE$y2025$leg1_h, 1)),
   "",
-  "**Otsus: mine 08:30 Rohuküla praamile.** See annab Hiiumaal üle seitsme tunni 112 km jaoks — mugav varu.",
-  "10:00 praam jätab napilt seitse tundi, mis tähendab Hiiumaal sisuliselt mitte peatumist. 11:30 praamiga on 18:30 Sõru läinud.",
-  "",
   "## Vorm — kaks numbrit, mis näitavad vastassuunda",
   "",
   "| Näitaja | Väärtus | Tähendus |",
@@ -249,36 +278,32 @@ md <- c(md, "",
   "aeroobne baas ei ole. Sellepärast on mudelis eraldi profiil „Taavi 2026 ootus\" (16,5 km/h sõidus) eristatuna",
   "2025. aasta tempost (18,5 km/h) — see vahe on täpselt see, mis Sõru praami maha jätab.",
   "",
-  if (!is.null(surface)) c(
+  if (!is.null(surface)) {
+    seg_bounds <- list(c(0,                  FERRIES$km_from[1]),
+                       c(FERRIES$km_to[1],   FERRIES$km_from[2]),
+                       c(FERRIES$km_to[2],   FERRIES$km_from[3]),
+                       c(FERRIES$km_to[3],   TOTAL_ROUTE_KM))
+    shares <- lapply(seg_bounds, \(b) surf_share(b[1], b[2]))
+    scol   <- function(k) sapply(shares, \(x) num_et(x[[k]] %||% 0, 0))
+    total  <- surf_share(0, TOTAL_ROUTE_KM)
+    c(
     "## Teekate — mõõdetud, mitte oletatud",
     "",
-    "OSM-i `surface` sildid iga 250 m tagant, lõikude kaupa. Kõigil punktidel on päris silt, ükski ei ole tuletatud.",
+    "OSM-i `surface` sildid iga 250 m tagant, lõikude kaupa; sildita teel tuletab klass teetüübist.",
     "",
     "| Lõik | Asfalt | Kruus | Pinnas | Teadmata |",
     "|------|-------:|------:|-------:|---------:|",
     paste0(sprintf("| %s | %s%% | %s%% | %s%% | %s%% |",
       c("Avaetapp (0 → Rohuküla)", "Hiiumaa", "Saaremaa + Muhu", "Tagasitee mandril"),
-      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
-                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
-             \(x) num_et(x$asfalt %||% 0, 0)),
-      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
-                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
-             \(x) num_et(x$kruus %||% 0, 0)),
-      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
-                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
-             \(x) num_et(x$pinnas %||% 0, 0)),
-      sapply(list(surf_share(0, 181.6), surf_share(204.2, 316.5),
-                  surf_share(331.2, 698.5), surf_share(705.9, TOTAL_ROUTE_KM)),
-             \(x) num_et(x$teadmata %||% 0, 0))),
+      scol("asfalt"), scol("kruus"), scol("pinnas"), scol("teadmata")),
       collapse = "\n"),
     "",
-    "**Avaetapp on 72% asfalti** — see kinnitab sinu tähelepanekut ja õigustab eraldi `push_kmh` parameetrit.",
-    "",
-    "⚠️ Kogu raja lõikes annab see 69% kõvakattega, samas kui korraldaja lubab 60% metsa/kruusa.",
-    "Vastuolu on suur ja ma ei suuda seda lahendada: snapping on täpne (mediaan 0 m rajast) ja sildid on ehtsad.",
-    "Kas BETA-track on mõnes kohas mööda kõrvalteed marsruuditud või on korraldaja number lõpliku raja kohta —",
-    "seda näed sina kolmapäeval paremini kui mina siit.",
-    "", "") else character(0),
+    sprintf("**Avaetapp on %s%% asfalti** — juhend ütleb sama („umbes 50%% kõvakattega\"). Kiireim lõik on ta igal juhul, eraldi `push_kmh` jääb.",
+            scol("asfalt")[1]),
+    sprintf("Kogu raja peale: %s%% asfalti, %s%% kruusa, %s%% pinnast. Hiiumaa on ainus lõik, kus kruus on enamuses (%s%%) — täpselt seal, kus kell kõige rohkem loeb.",
+            num_et(total$asfalt %||% 0, 0), num_et(total$kruus %||% 0, 0),
+            num_et(total$pinnas %||% 0, 0), scol("kruus")[2]),
+    "", "") } else character(0),
   "## Võimsus",
   "",
   sprintf("FTP **%d W** (%s W/kg), lävipulss %d, maksimaalne mõõdetud pulss %d.",
@@ -288,8 +313,8 @@ md <- c(md, "",
           "118 → 109 W", pct(ATHLETE$y2025$power_decay)),
   sprintf("TBR-il oli sama näitaja **%s** (115 → 84 W) — aga see oli 27 000 m tõusuga rada kuumuses.",
           pct(ATHLETE$tbr$power_decay)),
-  "Tänavune rada on lauge ja ilm jahedam, seega vastupidavuse mõttes on 2025. aasta profiil õigem ootus —",
-  "kuigi ka see rada oli tänavusest viis korda mägisem.",
+  "Tänavune rada on laugem ja ilm jahedam, seega vastupidavuse mõttes on 2025. aasta profiil õigem ootus —",
+  "ka see rada oli tänavusest (juhendi ~4000 m) kaks korda mägisem.",
   "",
   "| Lõik | Keskmine | NP | Miks |",
   "|------|---------:|---:|------|",
@@ -312,8 +337,8 @@ md <- c(md, "",
   sprintf("2025. aasta Kõkõval tegid vastupidist ja see töötas: läbi esimese öö (%.0f km), siis kokku ainult %s h und terve %.0f-tunnise võistluse peale. Rada oli teine, aga see on käitumine, mitte maastik — kandub üle.",
           ATHLETE$y2025$leg1_km, num_et(ATHLETE$y2025$sleep_h, 1), ATHLETE$y2025$elapsed_h),
   "",
-  "**Plaan:** sõida esimene öö läbi. See ei ole kangelaslikkus — see on ainus viis olla laupäeva hommikul 08:30 Rohuküla praamil.",
-  "Seejärel kaks ööd 4–5 h, magamiskoht valitud enne peatumist, mitte otsitud pärast.",
+  "**Plaan:** sõida esimene öö läbi. See ei ole kangelaslikkus — plaan A puhul on see ainus viis olla 06:30 Rohuküla praamil,",
+  "ja plaan B puhul ostab sama öö korraliku une Hiiumaal. Seejärel kaks ööd 4–5 h, magamiskoht valitud enne peatumist, mitte otsitud pärast.",
   "",
   "## Praamid ja päevakava",
   "",
@@ -329,7 +354,7 @@ md <- c(md, sprintf("| %.0f | **Finiš** | **%s** (%s h) |", TOTAL_ROUTE_KM, fmt
 md <- c(md, "",
   "Laevadel on toit: TS Laevade praamidel (Rohuküla–Heltermaa 75 min, Kuivastu–Virtsu 27 min) on restoran ja R-Kiosk.",
   "**75-minutiline Hiiumaa ülesõit on raja parim söögikoht** ja ainus, mis on laupäeva hommikul lahti, kui saarepoed veel magavad.",
-  "Sõru–Triigi laeval Soela toitlustust ei õnnestunud kinnitada — ära arvesta sellega.",
+  "Juhend kinnitab, et osta saab kõigil praamidel — ka Sõru–Triigi Soelal —, aga 35 min ja väike laev teevad sellest täienduse, mitte söögikoha.",
   "",
   "Varustuse ja lahtiolekuaegade detailid: [`resupply.md`](resupply.md). Ilm: [`weather_outlook.md`](weather_outlook.md).",
   "",

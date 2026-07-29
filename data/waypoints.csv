@@ -1,22 +1,25 @@
 km,name,lat,lon,ele,type,route_deg
-0,Tallinn Hundipea (start),59.4607,24.70544,7,start,333.4
-55,Liikva,59.39572,24.43297,25,road,118.7
-110,Siimika,59.12304,24.16338,44,road,183.3
-181.6,Rohuküla sadam,58.90768,23.42748,4,port,311
-204.2,Heltermaa sadam,58.86492,23.04393,7,port,333.4
-275,Esiküla (Hiiumaa),58.81387,22.83116,5,road,157.4
-316.5,Sõru sadam,58.69314,22.5223,3,port,171.8
-331.2,Triigi sadam,58.60742,22.71001,2,port,158.6
-385,Tagaranna (Saaremaa),58.50138,22.23564,6,road,331.5
-440,Neeme (Harilaid),58.49526,21.9307,9,road,197.7
-495,Tiirimetsa (Sõrve),58.15774,22.17669,3,road,123.2
-550,Vendise (Saaremaa),58.38907,22.34869,39,road,100.3
-605,Laimjala (Saaremaa),58.42733,23.00679,14,road,114
-660,Linnuse (Muhu),58.57985,23.16511,5,road,23.2
-698.5,Kuivastu sadam,58.57265,23.38773,4,port,144.8
-705.9,Virtsu sadam,58.57222,23.51543,5,port,64.7
-770,Martna (Läänemaa),58.81076,23.83995,15,road,323.5
-825,Väike-Nõmmküla (Läänemaa),59.06293,23.63311,20,road,333.1
-880,Pedase (Harjumaa),59.26326,23.9206,18,road,112.1
-935,Klooga,59.32094,24.22767,21,road,124.8
-984.6,Tallinn Hundipea (finish),59.4606,24.70567,7,finish,19.8
+0,Tallinn Hundipea (start),59.4607,24.70544,7,start,206.6
+46.1,Liikva,59.39572,24.43297,25,road,119.3
+101,Siimika,59.12304,24.16338,44,road,183.3
+172.7,Rohuküla sadam,58.90768,23.42748,4,port,279.8
+195.2,Heltermaa sadam,58.86492,23.04393,7,port,285.4
+221.9,"Paluküla (CP1, Hiiumaa)",58.98869,22.80689,22,cp,282.2
+275,Palli (Hiiumaa),58.93951,22.31912,14,road,272.1
+325,Mardihansu (Hiiumaa),58.89277,22.42086,29,road,115.8
+368.4,Sõru sadam,58.69314,22.5223,3,port,192.4
+383.1,Triigi sadam,58.60742,22.71001,2,port,158
+438.7,Tagaranna (Saaremaa),58.50138,22.23564,6,road,331.5
+488.2,Neeme (Harilaid),58.49526,21.9307,9,road,224.1
+527,Kuusnõmme (Saaremaa),58.31398,21.96149,8,road,198.5
+565.9,Vendise (Saaremaa),58.38907,22.34869,39,road,100.2
+620.5,Laimjala (Saaremaa),58.42733,23.00679,14,road,114
+649.7,Linnuse (Muhu),58.57561,23.16858,4,road,51.8
+669.8,"Kallaste (CP2, Muhu)",58.66517,23.2485,13,cp,84.6
+692.2,Kuivastu sadam,58.57265,23.38773,4,port,139
+699.7,Virtsu sadam,58.57222,23.51543,5,port,68.3
+763.7,Martna (Läänemaa),58.81076,23.83995,15,road,323.7
+817,Väike-Nõmmküla (Läänemaa),59.06293,23.63311,20,road,332.8
+873.2,Pedase (Harjumaa),59.26326,23.9206,18,road,111.9
+928.7,Klooga,59.32094,24.22767,21,road,124.8
+986.3,Tallinn Hundipea (finish),59.45983,24.70757,6,finish,152.8

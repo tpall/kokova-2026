@@ -33,7 +33,7 @@ UA          <- "kokova-2026-resupply/1.0 (+https://github.com/tpall/kokova-2026)
 SHOPS    <- c("supermarket", "convenience", "general", "kiosk", "bakery", "greengrocer", "butcher")
 AMENITY  <- c("fuel", "cafe", "restaurant", "fast_food", "drinking_water")
 
-if (!file.exists(KMZ_FILE)) stop("Need ", KMZ_FILE, " to locate resupply points along the route.")
+if (!file.exists(TRACK_FILE)) stop("Need ", TRACK_FILE, " to locate resupply points along the route.")
 
 trk <- read_track()
 cat(sprintf("Track: %.1f km\n", max(trk$km)))

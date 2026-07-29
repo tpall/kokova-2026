@@ -188,7 +188,7 @@ md <- c(
           format(Sys.time(), "%Y-%m-%d %H:%M %Z", tz = TZ)),
   "",
   sprintf("**Start** %s Hundipea · **limiit** %d päeva → %s · **rada** ~%.0f km",
-          fmt_dt(RACE_START), RACE_LIMIT_D, fmt_dt(RACE_END), 984.6),
+          fmt_dt(RACE_START), RACE_LIMIT_D, fmt_dt(RACE_END), TOTAL_ROUTE_KM),
   "",
   "## Ületuskohad rajal",
   "",
@@ -227,7 +227,7 @@ for (i in seq_len(nrow(FERRIES))) {
 
 # ── Sõru gate ─────────────────────────────────────────────────────────────────
 # Sõru–Triigi runs two or three times a day, so missing a sailing costs far more
-# than the crossing itself. Everything upstream of km 316.5 is really a race
+# than the crossing itself. Everything upstream of km 368.4 is really a race
 # against one of these departures — and since the only way onto Hiiumaa is the
 # Rohuküla ferry, each Sõru sailing implies a last Rohuküla ferry you can be on.
 

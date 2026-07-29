@@ -31,7 +31,7 @@ PBF_URL   <- "https://download.geofabrik.de/europe/estonia-latest.osm.pbf"
 SAMPLE_M   <- 250    # resolution of the surface profile
 CORRIDOR_M <- 30     # beyond this the nearest way is not the road we are on
 
-if (!file.exists(KMZ_FILE)) stop("Need ", KMZ_FILE, " to resolve surfaces along the route.")
+if (!file.exists(TRACK_FILE)) stop("Need ", TRACK_FILE, " to resolve surfaces along the route.")
 
 if (!file.exists(PBF)) {
   dir.create(CACHE_DIR, showWarnings = FALSE)
@@ -44,6 +44,11 @@ trk <- read_track()
 targets <- seq(0, max(trk$km), by = SAMPLE_M / 1000)
 idx     <- vapply(targets, function(t) which.min(abs(trk$km - t)), integer(1))
 probes  <- trk[unique(idx), c("lat", "lon", "km")]
+# Two of the crossings are drawn across the water inside the track; probing
+# them would only manufacture "teadmata" rows over open sea.
+on_ferry <- Reduce(`|`, lapply(seq_len(nrow(FERRIES)), function(i)
+  probes$km > FERRIES$km_from[i] & probes$km <= FERRIES$km_to[i]))
+probes <- probes[!on_ferry, ]
 cat(sprintf("Track %.1f km, %d probe points every %d m\n",
             max(trk$km), nrow(probes), SAMPLE_M))
 
@@ -72,10 +77,15 @@ cat("Highway ways in corridor:", nrow(roads), "\n")
 # GDAL's OSM driver folds everything except a few promoted keys into an HSTORE
 # string, so surface and friends have to be pulled back out of `other_tags`.
 tag <- function(x, key) {
-  m <- regmatches(x, regexpr(sprintf('"%s"=>"[^"]*"', key), x))
+  # Extraction must stay aligned to x: regmatches() with regexpr() returns the
+  # matched substrings for the matching elements only, and indexing with a
+  # logical built from that shorter vector recycles — every way then gets the
+  # surface tag of some other way. Work from the match positions instead.
+  r   <- regexpr(sprintf('"%s"=>"[^"]*"', key), x)
   out <- rep(NA_character_, length(x))
-  hit <- lengths(m) > 0 | nzchar(m)
-  out[hit] <- sub(sprintf('^"%s"=>"(.*)"$', key), "\\1", m[hit])
+  hit <- !is.na(r) & r > 0
+  m   <- substring(x[hit], r[hit], r[hit] + attr(r, "match.length")[hit] - 1L)
+  out[hit] <- sub(sprintf('^"%s"=>"(.*)"$', key), "\\1", m)
   out
 }
 roads$surface    <- tag(roads$other_tags, "surface")

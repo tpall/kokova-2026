@@ -20,25 +20,37 @@ RACE_START   <- as.POSIXct("2026-08-14 21:00:00", tz = TZ)
 RACE_LIMIT_D <- 7
 RACE_END     <- RACE_START + RACE_LIMIT_D * 86400   # Fri 21 Aug 21:00
 
+# The first 11 km out of Hundipea are neutralised behind the race director at
+# 20–25 km/h (manual p. 2), so every profile covers them in the same half hour.
+NEUTRAL_KM <- 11
+NEUTRAL_H  <- 0.5
+
 # All paths are relative to the project root — scripts are run from there, either
 # directly (`Rscript R/ferry_schedule.R`) or via the Makefile.
 DIR_DATA    <- "data"      # route definition: the track, and geometry derived from it
 DIR_OUTPUT  <- "output"    # machine-readable results, regenerated on every run
 DIR_REPORTS <- "reports"   # the human-facing markdown
 
-# Only prepare_route.R reads the KMZ; everything else uses the two derived CSVs
-# below, so the daily job never parses the track.
-KMZ_FILE             <- file.path(DIR_DATA, "kokova_2026_900_beta.kmz")
+# The organiser ships the final route as three RideWithGPS parts (renamed from
+# "N-3_(900…)_KÕKÕVA-26.gpx" — the originals carry ":" and "()", which break
+# make prerequisites). prepare_route.R concatenates them into TRACK_FILE, and
+# that merged file is what everything else reads — resupply.R, surface.R and
+# the vendored gpsweather engine — so the daily job never parses the ~20 500
+# track points, and outlook.py gets the single GPX path it expects.
+GPX_PARTS            <- file.path(DIR_DATA, sprintf("kokova_2026_900_final_%d.gpx", 1:3))
+TRACK_FILE           <- file.path(DIR_DATA, "kokova_2026_900_final.gpx")
 WAYPOINTS_CSV        <- file.path(DIR_DATA, "waypoints.csv")
 ROUTE_DIRECTIONS_CSV <- file.path(DIR_DATA, "route_directions.csv")
-TOTAL_ROUTE_KM       <- 984.6   # includes the ferry legs; refresh via prepare_route.R
+TOTAL_ROUTE_KM       <- 986.3   # includes the ferry legs; refresh via prepare_route.R
 
 # ── Route geometry ────────────────────────────────────────────────────────────
-# The KMZ holds three LineStrings. Two of the three ferry crossings appear as a
-# gap between segments (the KML simply stops at one quay and resumes at the
-# other); the Sõru–Triigi crossing is drawn as a straight line inside segment 2.
-# Both kinds are marked as ferry legs below so the pacing model never "rides"
-# across water.
+# The final track's parts split at CP1 (Paluküla) and at the Kuivastu quay, not
+# at the ferries: Rohuküla–Heltermaa and Sõru–Triigi are drawn straight across
+# the water inside the track, interpolated at ~100 m steps, and only
+# Kuivastu–Virtsu is a real gap between parts (6.7 km in one step). All three
+# are declared in FERRIES so the pacing model never "rides" across water — and
+# route_directions.csv drops the two drawn crossings by km range, because no
+# step-length filter can tell a 100 m step at sea from one on land.
 
 haversine <- function(lat1, lon1, lat2, lon2) {
   R <- 6371000; p <- pi / 180
@@ -47,26 +59,17 @@ haversine <- function(lat1, lon1, lat2, lon2) {
   2 * R * asin(pmin(1, sqrt(a)))
 }
 
-read_track <- function(kmz = KMZ_FILE) {
-  tmp <- tempfile(); dir.create(tmp)
-  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
-  utils::unzip(kmz, exdir = tmp)
-  kml <- read_xml(list.files(tmp, pattern = "\\.kml$", full.names = TRUE)[1])
-  ns  <- xml_ns(kml)
-
-  segs <- map(xml_find_all(kml, "//d1:Placemark", ns), function(p) {
-    nm   <- xml_text(xml_find_first(p, ".//d1:name", ns))
-    toks <- strsplit(trimws(xml_text(xml_find_first(p, ".//d1:coordinates", ns))), "\\s+")[[1]]
-    m    <- do.call(rbind, lapply(strsplit(toks, ","), function(z) as.numeric(z[1:3])))
-    tibble(seg = nm, lon = m[, 1], lat = m[, 2], ele = m[, 3])
-  })
-
-  trk <- bind_rows(segs)
+read_track <- function(gpx = TRACK_FILE) {
+  x  <- read_xml(gpx)
+  ns <- xml_ns(x)
+  pt <- xml_find_all(x, "//d1:trkpt", ns)
+  trk <- tibble(
+    lon = as.numeric(xml_attr(pt, "lon")),
+    lat = as.numeric(xml_attr(pt, "lat")),
+    ele = xml_double(xml_find_first(pt, "./d1:ele", ns))
+  )
   step <- c(0, haversine(head(trk$lat, -1), head(trk$lon, -1),
                          tail(trk$lat, -1), tail(trk$lon, -1)))
-  # A jump between two consecutive points larger than this is a segment break,
-  # i.e. a quay-to-quay ferry gap rather than a rideable stretch.
-  step[step > 3000 & c(FALSE, diff(as.integer(factor(trk$seg))) != 0)] -> ferry_steps
   trk |>
     mutate(step = step, km = cumsum(step) / 1000)
 }
@@ -114,12 +117,13 @@ wind_effect <- function(route_deg, wind_from_deg) {
 # published restriction on early or late sailings — which makes the 75-minute
 # Hiiumaa crossing the single best eating opportunity on the route, and the one
 # resupply that is open at 06:30 on a Saturday when every island shop is shut.
-# Nothing found confirms catering on Soela, so treat Sõru–Triigi as no service.
+# The race manual (p. 4) says supplies can be bought on all ferries, Soela
+# included — but 35 minutes and a small vessel make it a top-up, not a meal.
 FERRIES <- tribble(
   ~leg,       ~from,        ~to,          ~km_from, ~km_to, ~crossing_min, ~operator,        ~source,       ~onboard,
-  "ROH-HEL",  "Rohuküla",   "Heltermaa",     181.6,  204.2,            75, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk",
-  "SOR-TRI",  "Sõru",       "Triigi",        316.5,  331.2,            35, "Kihnu Veeteed",  "veeteed.com", "kinnitamata",
-  "KUI-VIR",  "Kuivastu",   "Virtsu",        698.5,  705.9,            27, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk"
+  "ROH-HEL",  "Rohuküla",   "Heltermaa",     172.7,  195.2,            75, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk",
+  "SOR-TRI",  "Sõru",       "Triigi",        368.4,  383.1,            35, "Kihnu Veeteed",  "veeteed.com", "väike müük (juhend)",
+  "KUI-VIR",  "Kuivastu",   "Virtsu",        692.2,  699.7,            27, "TS Laevad",      "praamid.ee",  "restoran + R-Kiosk"
 )
 
 # ── Rider profiles ────────────────────────────────────────────────────────────
@@ -194,8 +198,10 @@ simulate <- function(prof, sailings, total_km = TOTAL_ROUTE_KM) {
     if (slept == 0L) prof$push_kmh * (1 - prof$push_frac)
     else             prof$moving_kmh * (1 - prof$stop_frac)
   }
-  now      <- RACE_START
-  km       <- 0
+  # The neutralised opening is the same half hour for everyone: the group rides
+  # the first 11 km behind the race director, so no profile's own speed applies.
+  now      <- RACE_START + NEUTRAL_H * 3600
+  km       <- NEUTRAL_KM
   slept    <- 0                       # nights of sleep already taken
   log      <- list()
 
