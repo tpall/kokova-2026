@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — praamiplaan
 
-> Genereeritud **2026-07-29 19:25 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
+> Genereeritud **2026-07-30 09:27 EEST** · allikad [praamid.ee](https://www.praamid.ee) (TS Laevad) ja [veeteed.com](https://www.veeteed.com) (Kihnu Veeteed)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** ~986 km
 
@@ -30,7 +30,7 @@
 | Kuupäev | Väljumised |
 |---------|------------|
 | Fri 14.08 (R) | 08:15 _(50 rattakohta)_ · 11:00 _(50 rattakohta)_ · 18:30 _(46 rattakohta)_ |
-| Sat 15.08 (L) | 08:15 _(50 rattakohta)_ · 11:00 _(50 rattakohta)_ · 18:30 _(48 rattakohta)_ |
+| Sat 15.08 (L) | 08:15 _(50 rattakohta)_ · 11:00 _(50 rattakohta)_ · 18:30 _(47 rattakohta)_ |
 | Sun 16.08 (P) | 08:15 _(50 rattakohta)_ · 11:00 _(50 rattakohta)_ · 18:30 _(49 rattakohta)_ |
 | Mon 17.08 (E) | 08:15 _(50 rattakohta)_ · 11:00 _(50 rattakohta)_ · 15:30 _(48 rattakohta)_ |
 | Tue 18.08 (T) | 08:15 _(50 rattakohta)_ · 17:30 _(50 rattakohta)_ |
