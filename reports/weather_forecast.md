@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — ilmaprognoos rajal
 
-> Genereeritud **2026-07-31 09:43 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
+> Genereeritud **2026-07-31 16:52 EEST** · allikas [Open-Meteo](https://open-meteo.com) (16 päeva, tunniajaline lahutus)
 
 **Võistlusaken** R 14.08 21:00 → R 21.08 21:00 · **stardini 14 päeva**
 
@@ -12,17 +12,17 @@ Rada on lauge ja lage — tuul on ainus reljeef, mis siin loeb.
 
 | km | Punkt | Min °C | Max °C | Sadu mm (%) | **Öine sadu** | Öö min °C | Tuul / puhang m/s | Suund | Rajale | Ilm |
 |---:|-------|-------:|-------:|------------:|--------------:|----------:|------------------:|-------|--------|-----|
-| 0 | Tallinn Hundipea (start) | 10 | 17 | 0.0 (NA) | **0.0** (0h) | 11 | 3 / 7 | I | **külg** | ⛅ pilves |
-| 46 | Liikva | 10 | 17 | 0.0 (NA) | **0.0** (0h) | 12 | 4 / 10 | I | **vastu** | ⛅ pilves |
-| 101 | Siimika | 8 | 18 | 0.0 (NA) | **0.0** (0h) | 12 | 3 / 8 | I | **külg** | ⛅ pilves |
-| 173 | Rohuküla sadam | 10 | 19 | 0.0 (NA) | **0.0** (0h) | 14 | 4 / 9 | I | **päri** | ⛅ pilves |
-| 195 | Heltermaa sadam | 14 | 18 | 0.0 (NA) | **0.0** (0h) | 16 | 5 / 12 | I | **päri** | ⛅ pilves |
-| 222 | Paluküla (CP1, Hiiumaa) | 11 | 19 | 0.0 (NA) | **0.0** (0h) | 15 | 4 / 10 | I | **päri** | ⛅ pilves |
-| 275 | Palli (Hiiumaa) | 11 | 19 | 0.2 (NA) | **0.5** (5h) | 14 | 4 / 11 | I | **päri** | 🌦️ uduvihm |
-| 325 | Mardihansu (Hiiumaa) | 11 | 19 | 0.2 (NA) | **0.5** (5h) | 14 | 4 / 11 | I | **vastu** | 🌦️ uduvihm |
-| 368 | Sõru sadam | 12 | 20 | 0.0 (NA) | **0.0** (0h) | 15 | 5 / 12 | I | **külg** | ⛅ pilves |
-| 383 | Triigi sadam | 12 | 19 | 0.0 (NA) | **0.0** (0h) | 15 | 5 / 12 | I | **külg** | ⛅ pilves |
-| 439 | Tagaranna (Saaremaa) | 10 | 19 | 0.6 (NA) | **0.0** (0h) | 15 | 4 / 11 | I | **külg** | 🌦️ uduvihm |
+| 0 | Tallinn Hundipea (start) | 10 | 17 | 0.0 (39) | **0.0** (0h) | 12 | 3 / 7 | I | **külg** | ⛅ pilves |
+| 46 | Liikva | 10 | 17 | 0.0 (41) | **0.0** (0h) | 12 | 4 / 10 | I | **vastu** | ⛅ pilves |
+| 101 | Siimika | 8 | 18 | 0.0 (37) | **0.0** (0h) | 12 | 3 / 8 | I | **külg** | ⛅ pilves |
+| 173 | Rohuküla sadam | 10 | 19 | 0.0 (31) | **0.0** (0h) | 13 | 4 / 9 | I | **päri** | ⛅ pilves |
+| 195 | Heltermaa sadam | 14 | 18 | 0.0 (31) | **0.0** (0h) | 14 | 5 / 12 | I | **päri** | ⛅ pilves |
+| 222 | Paluküla (CP1, Hiiumaa) | 11 | 19 | 0.0 (35) | **0.0** (0h) | 15 | 4 / 10 | I | **päri** | ⛅ pilves |
+| 275 | Palli (Hiiumaa) | 11 | 19 | 0.2 (20) | **0.5** (5h) | 15 | 4 / 11 | I | **päri** | 🌦️ uduvihm |
+| 325 | Mardihansu (Hiiumaa) | 11 | 19 | 0.2 (27) | **0.5** (5h) | 14 | 4 / 11 | I | **vastu** | 🌦️ uduvihm |
+| 368 | Sõru sadam | 12 | 20 | 0.0 (33) | **0.0** (0h) | 15 | 5 / 12 | I | **külg** | ⛅ pilves |
+| 383 | Triigi sadam | 12 | 19 | 0.0 (35) | **0.0** (0h) | 15 | 5 / 12 | I | **külg** | ⛅ pilves |
+| 439 | Tagaranna (Saaremaa) | 10 | 19 | 0.6 (31) | **0.0** (0h) | 15 | 4 / 11 | I | **külg** | 🌦️ uduvihm |
 
 ## L 15.08
 
