@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — varustus ja toitlustus
 
-> Genereeritud **2026-07-31 16:52 EEST** · allikas OpenStreetMap (Overpass) · 483 punkti kuni 1200 m rajast
+> Genereeritud **2026-07-31 17:22 EEST** · allikas OpenStreetMap (Overpass) · 483 punkti kuni 1200 m rajast
 
 ## Lühidalt
 

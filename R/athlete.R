@@ -22,14 +22,15 @@ ATHLETE <- list(
   # aerobic endurance 88, aerobic capacity 67, anaerobic 25.
   profile_type = "endurance specialist",
 
-  # ── Current form, as of the last data (24 Jul 2026) ─────────────────────────
-  # The two numbers point in opposite directions and both matter.
-  chronic_load     = 323,   # Garmin 28-day chronic load
+  # ── Current form ────────────────────────────────────────────────────────────
+  # The Garmin load/HRV figures are from the 24 Jul sync and predate the recon
+  # block — refresh them at the next sync; the ride facts below are current.
+  chronic_load     = 323,   # Garmin 28-day chronic load, 24 Jul — pre-recon
   chronic_peak     = 833,   # 2026 peak, 18 Apr
   hrv_recent       = 61,    # weekly average, 22–24 Jul; 2026 mean is 59.8
-  days_off_bike    = 13,    # last ride 13 Jul
-  training_status  = "DETRAINING",
-  longest_ride_since_race_km = 61.7,   # 11 Jul, 2.4 h
+  days_off_bike    = 0,     # recon block 30–31 Jul; before it, none since 13 Jul
+  training_status  = "DETRAINING",   # 24 Jul label; the recon block will move it
+  longest_ride_since_race_km = 225,  # 30 Jul: 157 km recon + 68 km on to camp, one day, loaded
 
   # ── Kõkõva 2025: the best capability data, NOT a time prediction ────────────
   # A ~937 km self-supported ride, 15–19 Aug 2025, off a 20:48 start. Same
@@ -98,7 +99,41 @@ ATHLETE <- list(
     # sensible figure for a cool Estonian day — drinking was adequate for the
     # conditions, unlike the carbs. In an August warm spell the 500+ ml/h end
     # of the band applies and remains unpractised.
-    fluid_ml_h_est = 360
+    fluid_ml_h_est = 360,
+    # The ride did not end at the quay: another ~68 km on to a campsite the
+    # same evening (day 1 ≈ 225 km loaded), and ~90 km home on 31 Jul. Those
+    # two legs ARE on record — watch-tracked, uploaded to Garmin Connect
+    # (68 km full; 75 of the ~90 km, until the watch battery died) — so HR and
+    # pace for them can be pulled at the next sync. Together the block is the
+    # back-to-back loaded weekend the TBR debrief demanded (durability,
+    # power-after-fatigue), ridden on and around the actual course.
+    day1_total_km = 225,
+    day2_km       = 90,   # ~75 km watch-recorded, remainder untracked
+    # Garmin's recovery advisor asked for 95 h after day 1 — near its 96 h
+    # ceiling. Read together with the pace: top-end speed is intact, but on
+    # ~39% of peak chronic load a big day costs close to the maximum the
+    # scale shows. This is the measured argument for keeping the multi-day
+    # moving speed derated (17.5 vs 2025's 18.5) even though the opening push
+    # came out faster than 2025.
+    recovery_req_h = 95
+    # Conditions and how it felt, day by day (memory):
+    # D1: light-to-moderate headwind most of the way and false flat; hardest
+    #     stretches were the gravel/dirt before and after Keila; legs already
+    #     sour at halfway, the day after the cold. The 21.8 average carries
+    #     all of that, which strengthens the gate conclusion — calm air and
+    #     healthy legs only add margin. Coastal drop made the last km fast;
+    #     the evening leg to camp felt fine.
+    # D2: tailwind to Padise/Klooga-Ranna, then 29 °C and headwind home.
+    #     Breakfast carried from Haapsalu: 2 sandwiches, ~100 g pancakes with
+    #     orange jam (jam bought in a glass jar the day before), a banana,
+    #     0.5 L cola. Madise: 0.5 L alcohol-free beer + 80 g snacks
+    #     (~470 kcal/100 g). Feeling good, he SKIPPED the planned Padise
+    #     lunch — and bonked after Tabasalu ~2 h later, rescued by 2 × 50 g
+    #     bars; the last 10 km crawled. Textbook eat-by-clock-not-by-feel.
+    # Position: by the end of day 2 he could no longer hold a good riding
+    # position and picked up light saddle sores — flagged for a pre-race fit
+    # check (the 90 mm stem may be long) and a chamois-cream line on the kit
+    # list. Part of this is simply end-of-block fatigue on a low base.
   ),
 
   # ── TBR 2026: what a hard multi-day looks like when it goes wrong ───────────

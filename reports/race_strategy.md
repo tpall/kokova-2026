@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-31 16:52 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-31 17:22 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 986 km (942 km sõitu + 45 km praame), ~4000 m tõusu
 
@@ -61,14 +61,15 @@ Tempod on **elapsed**, mitte sõidutempo — sisaldavad kõiki peatusi. Sinu 202
 
 | Näitaja | Väärtus | Tähendus |
 |---------|---------|----------|
-| HRV nädala keskmine | 61 | Täielikult taastunud, üle enda 2026. aasta keskmise (59,8) |
-| Kroonilne koormus | 323 | **39% aprilli tipust (833)** — Garmini staatus DETRAINING |
-| Päevi rattata | 13 | Viimane sõit 13. juuli |
-| Pikim sõit pärast TBR-i | 62 km | 11. juuli, 2,4 h |
+| HRV nädala keskmine | 61 | 22.–24.07 seis — üle enda 2026. aasta keskmise (59,8) |
+| Kroonilne koormus | 323 | **39% aprilli tipust (833)** — 24.07 seis, enne luureplokki |
+| Pikim sõit pärast TBR-i | 225 km | 30. juuli: luure + laagrisõit ühe päevaga, täiskoormaga |
+| Luureplokk 30.–31.07 | ~315 km | Kaks järjestikust koormatud päeva (225 + ~90 km) |
 
-Oled maksimaalselt värske ja samal ajal märkimisväärselt vormist väljas. Värskus on 19 päevaga taastatav osa;
-aeroobne baas ei ole. Sellepärast on mudelis eraldi profiil „Taavi 2026 ootus" (16,5 km/h sõidus) eristatuna
-2025. aasta tempost (18,5 km/h) — see vahe on täpselt see, mis Sõru praami maha jätab.
+Detreening-lugu sai luureplokiga sisulise vastuse: 225 km päev pluss ~90 km järgmisel hommikul on täpselt see
+back-to-back, mida TBR-i debrief nõudis, ja avaetapi tempo tuli 2025. aasta vormist *kõrgem*, mitte madalam.
+Teine pool: Garmin küsis 225 km päeva järel **95 h taastumist** — sisuliselt skaala lagi. Tipptempo on alles, aga suure päeva hind on madala kroonilise koormuse pealt praegu maksimumilähedane.
+Just seepärast jääb mitmepäevane püsikiirus mudelis (17,5 km/h) 2025. omast (18,5) allapoole — ja seepärast on järgmised kaks nädalat kerged: taastumine on nüüd treening.
 
 ## Teekate — mõõdetud, mitte oletatud
 

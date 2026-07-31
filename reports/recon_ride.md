@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — mandriringi luuresõit
 
-> Genereeritud **2026-07-31 16:48 EEST** · plaan sõiduks **N 30.07 21:00**
+> Genereeritud **2026-07-31 17:19 EEST** · plaan sõiduks **N 30.07 21:00**
 
 ## Miks
 
@@ -105,11 +105,20 @@ Võistlustõlge: puuduv Hundipea algus lisab ~0,9 h (11 km neutraliseeritult + ~
 
 **Plaan A on mängus.** Murdepunkt (~20 km/h avaetapil) sai mõõdetud tulemusega kaetud; mudel on uuendatud (`R/plan.R` profiil „Taavi 2026 ootus": push 21,5 km/h × 7% peatusi, öine derate sees).
 
+Ja sõit ei lõppenud kai peal: samal õhtul veel ~68 km laagrisse (**päev 1 kokku ~225 km täiskoormaga**) ning 31.07 ~90 km koju — kokku ~315 km kahe päevaga. See on täpselt see back-to-back koormatud plokk, mida TBR-i debrief nõudis (durability, power-after-fatigue), sõidetud päris raja peal ja ümber. Laagri- ja kojusõit on kellaga Garmin Connectis kirjas (68 km täielik; 75 km enne aku tühjenemist), nii et selle osa pulss ja tempo on päris andmetena olemas.
+
 Kaks kadu, mõlemad talutavad:
-- **Fail läks kaotsi** (Edge'i tegevus kogemata kustutatud) — elapsed-tempo jäi mällu, aga moving/stopped jaotus, pulss ja võimsus (120–130 W sihi kontroll) jäid saamata. Need mõõdab võistlus ise.
+- **Avaetapi fail läks kaotsi** (Edge'i tegevus kogemata kustutatud) — elapsed-tempo jäi mällu, aga 157 km moving/stopped jaotus, pulss ja võimsus (120–130 W sihi kontroll) jäid saamata. Need mõõdab võistlus ise.
 - **Süsivesikud jäid sihist maha, vesi mitte:** teada olev sissevõtt (4 saiakest, 0,5 L koolat, ~1 L pudelijooki 4–5 tl suhkruga) ≈ 32 g/h, koos kaasavõetuga maksimaalselt ~68 g/h — 90 g/h siht on endiselt proovimata. Vedelikku kokku ~2,6 L (sh 1,1 L vett, täidetud Keilas) ehk ~360 ml/h — jaheda päeva higimääraga (345–502 ml/h alumine ots) täpselt paras. Stardieelse nädala ainus lahtine treeningpunkt on seega söömine: üks 2–3 h sõit 90 g/h peal.
 
 Distsipliini poolelt: Ristil möödus 24/7 Circle K-st peatumata (sai Coopi kõrval söödud oma saiake) — täpselt see peatuste režiim, mida võistlusplaan eeldab.
+
+### Õppetunnid
+
+1. **21,8 tuli vastutuulega.** Suurem osa avaetapist oli kerge-mõõdukas vastutuul ja false flat, jalad päev pärast külmetust poolest maast hapud — ja keskmine ikkagi 21,8. Vaikse ilmaga ja tervena on varu suurem; värava-järeldus muutub ainult kindlamaks. Raskeimad lõigud olid kruus ja pinnas enne ja pärast Keilat — kattub `surface.csv` pildiga.
+2. **Söö kella, mitte enesetunde järgi.** Teisel päeval jäi Padise lõuna heaolutunde tõttu vahele — ja kaks tundi hiljem, pärast Tabasalut, tuli bonk: kaks batoonikest päästsid, aga viimased 10 km roomasid. Võistlusel: iga 45–60 min midagi, ka siis (eriti siis), kui tunne on hea. Täpselt seda 90 g/h proovisõit harjutabki.
+3. **Asend ja iste vajavad enne starti tähelepanu.** 315 km ploki lõpuks ei püsinud hea sõiduasend ja tekkisid kerged istumishaavandid. Osa on lihtsalt madala baasi väsimus, aga kontrolli sel nädalal sadula kalle ja ette-taha asend ning kui 90 mm pikkus tundub ka värskena pikk, proovi 75–80 mm vart — koos proovisõiduga, mitte esimest korda võistlusel. Võistluskotti: istmekreem.
+4. **29 °C juhtus ka Eestis.** Teise päeva lõpu tegi raskeks kuumus + vastutuul, mitte distants. Joomisplaani kuuma stsenaarium (500+ ml/h) vajab sama läbimõtlemist kui jaheda oma — 360 ml/h oli paras jahedale päevale, mitte augusti kuumalainele.
 
 ## Pärast sõitu
 
