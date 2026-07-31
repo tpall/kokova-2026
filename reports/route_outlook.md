@@ -1,6 +1,6 @@
 # Kõkõva 900 — route weather outlook
 
-Generated 2026-07-31T13:55:16+00:00 · route 986.3 km / 1791 m · start Fri 14 Aug 21:00 EEST · 51 weather members × 12 rider draws
+Generated 2026-07-31T14:27:23+00:00 · route 986.3 km / 1791 m · start Fri 14 Aug 21:00 EEST · 51 weather members × 12 rider draws
 
 > **⚠ Forecast horizon covers the full ride in only 0% of realisations; later hours are clamped to the horizon edge.**
 

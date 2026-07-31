@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-07-31T13:55:16+00:00",
+ "generated_utc": "2026-07-31T14:27:23+00:00",
  "label": "Kõkõva 900 — route weather outlook",
  "track": "data/kokova_2026_900_final.gpx",
  "route_km": 986.3,
@@ -77,7 +77,7 @@
   ],
   "mean_headwind_ms": [
    0.2229004969431762,
-   0.48921992360534794,
+   0.489219923605348,
    0.9900904270458989
   ],
   "max_gust_ms": [
