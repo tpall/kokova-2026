@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — varustus ja toitlustus
 
-> Genereeritud **2026-07-31 09:43 EEST** · allikas OpenStreetMap (Overpass) · 483 punkti kuni 1200 m rajast
+> Genereeritud **2026-07-31 16:49 EEST** · allikas OpenStreetMap (Overpass) · 483 punkti kuni 1200 m rajast
 
 ## Lühidalt
 
@@ -114,28 +114,28 @@ Sõru–Triigi laeva Soela kohta toitlustust kinnitada ei õnnestunud. Ära arve
 
 Mudeliprofiil „Taavi 2026 ootus". Lahtiolekuajad on OSM-ist ja 54 punktil 219-st puuduvad või on masinloetamatud — need on tabelist väljas.
 
-Neist, mille kohta andmed on: **87 lahti, 78 kinni** kui sa möödud.
+Neist, mille kohta andmed on: **118 lahti, 47 kinni** kui sa möödud.
 
 Suletud punktid, mis muidu oleks olulised:
 
 | km | Möödud | Tüüp | Nimi | Lahtiolek |
 |---:|--------|------|------|-----------|
-| 121,2 | L 15.08 05:09 | väikepood | Coop Risti kauplus | Mo-Su 09:00-20:00 |
-| 132,0 | L 15.08 05:53 | väikepood | Coop Palivere kauplus | Mo-Su 09:00-20:00 |
-| 153,8 | L 15.08 07:21 | väikepood | Coop Parila kauplus | Mo-Su 09:00-19:00 |
-| 519,1 | P 16.08 21:18 | väikepood | Coop Kihelkonna kauplus | Mo-Sa 09:00-20:00; Su 10:00-18:00 |
-| 536,0 | P 16.08 22:42 | väikepood | Coop Lümanda kauplus | Mo-Su 09:00-20:00 |
-| 589,3 | E 17.08 09:12 | väikepood | Kaali Kauplus | 10:00-20:00 |
-| 718,3 | E 17.08 21:19 | väikepood | Coop Tuudi kauplus | Mo-Fr 10:00-18:00; Sa 10:00-15:00 |
-| 756,9 | T 18.08 00:27 | väikepood | Rõude kauplus | Mo-Sa 10:00-18:00 |
-| 769,7 | T 18.08 01:29 | väikepood | Coop Martna kauplus | Mo-Fr 09:00-19:00 |
-| 928,6 | T 18.08 21:36 | külapood | Mini-Top | Mo-Su 09:30-21:00 |
-| 943,0 | T 18.08 22:52 | toidupood | Keila TÜ Rõõmu kaubamaja | Mo-Su 09:00-22:00 |
-| 943,1 | T 18.08 22:53 | väikepood | Keila TÜ Jaama kauplus | Mo-Su 08:00-21:00 |
-| 944,3 | T 18.08 22:59 | väikepood | Keila TÜ Kauplus Keila | Mo-Su 09:00-22:00 |
-| 944,3 | T 18.08 22:59 | väikepood | mini rimi | Mo-Sa 08:00-22:00 |
-| 944,3 | T 18.08 23:00 | toidupood | Selver | Mo-Su 08:00-23:00 |
-| 944,4 | T 18.08 23:00 | pagariäri | Kraft | We-Su 10:00-19:00 |
+| 121,2 | L 15.08 04:26 | väikepood | Coop Risti kauplus | Mo-Su 09:00-20:00 |
+| 132,0 | L 15.08 05:06 | väikepood | Coop Palivere kauplus | Mo-Su 09:00-20:00 |
+| 153,8 | L 15.08 06:27 | väikepood | Coop Parila kauplus | Mo-Su 09:00-19:00 |
+| 519,1 | P 16.08 01:53 | väikepood | Coop Kihelkonna kauplus | Mo-Sa 09:00-20:00; Su 10:00-18:00 |
+| 684,2 | P 16.08 21:40 | toidupood | Coop Hellamaa kauplus | Mo-Fr 10:00-18:00; Sa-Su 10:00-16:00 |
+| 699,7 | P 16.08 23:47 | toidupood | Coop Virtsu Konsum | Mo-Su 09:00-20:00 |
+| 718,3 | E 17.08 01:03 | väikepood | Coop Tuudi kauplus | Mo-Fr 10:00-18:00; Sa 10:00-15:00 |
+| 907,9 | E 17.08 22:46 | väikepood | Grossi Toidukaubad | 08:00-22:00 |
+| 908,3 | E 17.08 22:48 | toidupood | Coop Paldiski Konsum | Mo-Su 09:00-22:00 |
+| 928,6 | T 18.08 00:31 | külapood | Mini-Top | Mo-Su 09:30-21:00 |
+| 943,0 | T 18.08 01:43 | toidupood | Keila TÜ Rõõmu kaubamaja | Mo-Su 09:00-22:00 |
+| 943,1 | T 18.08 01:44 | väikepood | Keila TÜ Jaama kauplus | Mo-Su 08:00-21:00 |
+| 944,3 | T 18.08 01:50 | väikepood | Keila TÜ Kauplus Keila | Mo-Su 09:00-22:00 |
+| 944,3 | T 18.08 01:50 | väikepood | mini rimi | Mo-Sa 08:00-22:00 |
+| 944,3 | T 18.08 01:50 | toidupood | Selver | Mo-Su 08:00-23:00 |
+| 944,4 | T 18.08 01:50 | pagariäri | Kraft | We-Su 10:00-19:00 |
 
 ## Toitlustus
 

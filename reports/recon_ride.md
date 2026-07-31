@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — mandriringi luuresõit
 
-> Genereeritud **2026-07-29 19:21 EEST** · plaan sõiduks **N 30.07 21:00**
+> Genereeritud **2026-07-31 16:48 EEST** · plaan sõiduks **N 30.07 21:00**
 
 ## Miks
 
@@ -97,10 +97,23 @@ Kaks järjestikust pikka päeva täiskoormaga on täpselt see, mida TBR-i debrie
 Kui nädalast jätkub ainult üheks päevaks, tee **väljasõit**. See on ainus osa, mis mõõdab praamiväravat.
 Tagasitee on väärtuslik durability jaoks, aga seda saab asendada.
 
+## Tulemus — sõidetud N 30.07, start ~13.15
+
+**157 km uksest Rohuküla sadamani mööda lõplikku rada, veidi üle 7 tunni.** Edge'i viimane meeles olev keskmine oli 21,8 km/h — see väli on taimeripõhine ehk sisuliselt sõidukeskmine; väheste lühikeste peatustega teeb see elapsed-tempoks ~21,0–21,8 km/h. Täiskoormaga, päeval, päev pärast külmetust.
+
+Võistlustõlge: puuduv Hundipea algus lisab ~0,9 h (11 km neutraliseeritult + ~5 km oma tempoga), ehk **~8,1 h stardist kaini** — Rohukülas ~05:05, 06:15 sihtajast ~70 min varem. Ka päevase sõidu optimismi maha arvates on 06:30 praam varuga käes.
+
+**Plaan A on mängus.** Murdepunkt (~20 km/h avaetapil) sai mõõdetud tulemusega kaetud; mudel on uuendatud (`R/plan.R` profiil „Taavi 2026 ootus": push 21,5 km/h × 7% peatusi, öine derate sees).
+
+Kaks kadu, mõlemad talutavad:
+- **Fail läks kaotsi** (Edge'i tegevus kogemata kustutatud) — elapsed-tempo jäi mällu, aga moving/stopped jaotus, pulss ja võimsus (120–130 W sihi kontroll) jäid saamata. Need mõõdab võistlus ise.
+- **Süsivesikud jäid sihist maha, vesi mitte:** teada olev sissevõtt (4 saiakest, 0,5 L koolat, ~1 L pudelijooki 4–5 tl suhkruga) ≈ 32 g/h, koos kaasavõetuga maksimaalselt ~68 g/h — 90 g/h siht on endiselt proovimata. Vedelikku kokku ~2,6 L (sh 1,1 L vett, täidetud Keilas) ehk ~360 ml/h — jaheda päeva higimääraga (345–502 ml/h alumine ots) täpselt paras. Stardieelse nädala ainus lahtine treeningpunkt on seega söömine: üks 2–3 h sõit 90 g/h peal.
+
+Distsipliini poolelt: Ristil möödus 24/7 Circle K-st peatumata (sai Coopi kõrval söödud oma saiake) — täpselt see peatuste režiim, mida võistlusplaan eeldab.
+
 ## Pärast sõitu
 
-Uuenda `R/plan.R` profiili „Taavi 2026 ootus" mõõdetud numbritega ja jooksuta `make strategy`.
-Kogu praamivärava analüüs arvutatakse siis päris andmete pealt, mitte oletuse pealt.
+~~Uuenda `R/plan.R` profiili „Taavi 2026 ootus" mõõdetud numbritega ja jooksuta `make strategy`.~~ Tehtud 31.07 — praamivärava analüüs jookseb nüüd mõõdetud tempo pealt.
 
 ---
 

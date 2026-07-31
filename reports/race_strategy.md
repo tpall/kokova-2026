@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-31 09:43 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-07-31 16:49 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 986 km (942 km sõitu + 45 km praame), ~4000 m tõusu
 
@@ -27,9 +27,9 @@ Juhend ütleb sama viisakamalt: kahe esimese hommikuse praamiga saabujad „peak
 
 ### Kus sina selles tabelis oled
 
-Praeguse vormi mudel (19,0 km/h avaetapil, 10% peatusi) toob su Rohukülla kell **06:57** — 06:30 praam on läinud ja koos sellega laupäevane Sõru.
-2025. aasta vormis (20,5 km/h, 6% peatusi) oleksid kohal **05:53** — praam kindlalt käes.
-Kogu strateegia taandub küsimusele, kumb number on tõele lähemal — täpselt seda mõõdab kolmapäevane luuresõit.
+Luurega kalibreeritud mudel (21,5 km/h avaetapil, 7% peatusi) toob su Rohukülla kell **05:35** — **40 min varu** 06:15 sihi peale.
+2025. aasta vormi profiil (20,5 km/h, 6% peatusi) annab **05:53** — **22 min varu** 06:15 sihi peale. Kaks sõltumatut numbrit, sama vastus.
+Mõõdetud alus: 30.07 luure — 157 km uksest Rohuküla kaini lõplikul rajal, Edge'i keskmine 21,8 km/h ([`recon_ride.md`](recon_ride.md)). Fail läks kaotsi ja tempo jäi mällu; võimsuse ja peatuste jaotuse mõõdab võistlus ise.
 
 ### Murdepunkt — avaetapi sõidutempo, mis 18:30 praami veel püüab
 
@@ -39,13 +39,13 @@ Kogu strateegia taandub küsimusele, kumb number on tõele lähemal — täpselt
 | 2025. aasta distsipliin (6%) | **19,1 km/h** |
 | peaaegu ei peatu (3%) | **18,5 km/h** |
 
-Bisektsioon simulatsioonil endal — neutraliseeritud start, päris praamigraafik ja Hiiumaa lõik kõik sees. Võrdluseks: mudeli praegune eeldus on 19,0 km/h, 2025. aasta mõõdetud avaetapp 20,5 km/h.
+Bisektsioon simulatsioonil endal — neutraliseeritud start, päris praamigraafik ja Hiiumaa lõik kõik sees. Võrdluseks: mudeli praegune eeldus on 21,5 km/h, 2025. aasta mõõdetud avaetapp 20,5 km/h.
 
 ### Plaan A ja plaan B
 
 **Plaan A — luure näitab murdepunkti-tempot:** sõida esimene öö läbi, ole Rohukülas enne 06:15, Hiiumaa ühe hooga, 18:30 Sõru praam, maga Saaremaal.
 **Plaan B — ei näita:** ära põleta end 08:30 praami nimel, see ei osta midagi — 18:30 jääb ikka püüdmata. Võta Hiiumaa rahulikult, maga korralikult (CP1 Palukülas km 222 on köök ja dušid) ja ole pühapäeva 08:15 Sõru praamil. Hind: 13,8 h hiljem Saaremaal, aga puhanuna ja ilma end esimese ööpäevaga tühjaks sõitmata.
-Otsus langeb luuresõidu järel, mitte võistlusel improviseerides.
+Luure (30.07) langetas otsuse: **plaan A**. Plaan B jääb tagataskusse juhuks, kui võistlusnädal toob haiguse, tehnilise rikke või tõsise vastutuule — siis on tal endiselt täpne hind ja täpne ööbimiskoht.
 
 ### Kuidas iga Sõru praam kätte saada
 
@@ -116,13 +116,13 @@ ja plaan B puhul ostab sama öö korraliku une Hiiumaal. Seejärel kaks ööd 4�
 
 | km | Sündmus | Aeg (Taavi 2026 ootus) |
 |---:|---------|------------------------|
-| 173 | Rohuküla→Heltermaa L 15.08 08:30 (ootamine 1.5 h) | L 15.08 06:57 |
-| 368 | Sõru→Triigi P 16.08 08:15 (ootamine 12.4 h) | L 15.08 19:52 |
-| 576 | uni 6.0 h | E 17.08 02:00 |
-| 692 | Kuivastu→Virtsu E 17.08 18:45 (ootamine 0.4 h) | E 17.08 18:22 |
-| 776 | uni 6.0 h | T 18.08 02:00 |
-| 978 | uni 6.0 h | K 19.08 02:00 |
-| 986 | **Finiš** | **K 19.08 08:44** (108 h) |
+| 173 | Rohuküla→Heltermaa L 15.08 06:30 (ootamine 0.9 h) | L 15.08 05:35 |
+| 368 | Sõru→Triigi L 15.08 18:30 (ootamine 2.1 h) | L 15.08 16:24 |
+| 521 | uni 6.0 h | P 16.08 02:00 |
+| 692 | Kuivastu→Virtsu P 16.08 22:50 (ootamine 0.5 h) | P 16.08 22:21 |
+| 732 | uni 6.0 h | E 17.08 02:00 |
+| 946 | uni 6.0 h | T 18.08 02:00 |
+| 986 | **Finiš** | **T 18.08 11:22** (86 h) |
 
 Laevadel on toit: TS Laevade praamidel (Rohuküla–Heltermaa 75 min, Kuivastu–Virtsu 27 min) on restoran ja R-Kiosk.
 **75-minutiline Hiiumaa ülesõit on raja parim söögikoht** ja ainus, mis on laupäeva hommikul lahti, kui saarepoed veel magavad.

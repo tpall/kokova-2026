@@ -157,9 +157,15 @@ PROFILES <- tribble(
   # and eastern Estonia with ~5× the climbing and no ferries — so these are
   # rider capability numbers, not a transferable finish time. See R/athlete.R.
   "Taavi 2025 tempo",   18.5,      20.5,       0.28,       0.06,      6.0,          2L,       FALSE,
-  # Same shape, derated for the current detrained state: chronic load sits at
-  # ~39% of the April peak with 13 days off the bike as of 26 Jul.
-  "Taavi 2026 ootus",   16.5,      19.0,       0.32,       0.10,      6.0,          2L,       FALSE
+  # Same shape, recalibrated after the 30 Jul recon: 157 km door → Rohuküla on
+  # the final track, daytime, loaded; the Edge showed 21.8 km/h average
+  # (timer-based ≈ moving), elapsed ~21.0–21.8 (file lost — figures from
+  # memory, see R/athlete.R). push_kmh takes the moving figure with a ~1.5%
+  # night trim; with 7% stops that is ~20.0 effective, versus the ~21 measured
+  # by day. The multi-day moving speed stays derated against 2025's 18.5,
+  # because one fresh day says nothing about durability and chronic load still
+  # sits at ~39% of the April peak.
+  "Taavi 2026 ootus",   17.5,      21.5,       0.32,       0.07,      6.0,          2L,       FALSE
 )
 
 # Estonian weekday abbreviations — LC_TIME is pinned to "C" so that parsing the

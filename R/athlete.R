@@ -43,9 +43,10 @@ ATHLETE <- list(
   # rides before first sleeping, how little he sleeps, how slowly his power
   # decays. The 89.8 h elapsed is NOT transferable and must not be used as a
   # target time. If anything the 18.5 km/h understates flat-terrain capability —
-  # it was set on five times the climbing — but the 2026 route is 60%
-  # forest/gravel, which cuts the other way. That tension is the single largest
-  # uncertainty in the whole plan.
+  # it was set on twice the climbing (2026 manual: ~4000 m) — but the 2026
+  # route is ~46% gravel/dirt, which cuts the other way. That tension was the
+  # plan's largest uncertainty until the 30 Jul recon (below) measured the
+  # opening leg on the actual track.
   y2025 = list(
     km            = 936.7,
     ascent_m      = 5749,   # Garmin barometric; the GPX route totals ~8 200 m
@@ -59,6 +60,45 @@ ATHLETE <- list(
     leg1_km       = 349.3,  # ridden straight off the start, no sleep
     leg1_h        = 17.85,
     power_decay   = -0.08   # 118 → 109 W avg over the first three long legs
+  ),
+
+  # ── Recon 30 Jul 2026: the opening leg, measured on the final track ─────────
+  # Front door → Rohuküla quay along the race route, ~13:15 start after a
+  # proper lunch, loaded bike, 15 days out and a day after a head cold. THE
+  # FILE IS GONE — the Edge 1040 activity was discarded by accident — so every
+  # figure here is from memory and rounded, and there is no moving/stopped
+  # split, no HR and no power. The elapsed pace is the number the ferry gate
+  # runs on, and that one survived in the rider's head.
+  recon = list(
+    date        = as.Date("2026-07-30"),
+    depart      = "~13:15",   # → quay ~20:25; all daylight, shops open throughout
+    # Pre-ride lunch: 2 boiled potatoes + chicken half-leg with white sauce —
+    # a real meal ~0 h before rolling. Race-day analogue exists: the organiser
+    # serves dinner at 19:00, two hours before the 21:00 gun.
+    km          = 157,    # door → quay on the final track (race: 172.7 from Hundipea)
+    elapsed_h   = 7.2,    # "a little more than 7 hours"
+    avg_kmh     = 21.8,   # the last average the rider saw on the Edge — that
+                          # field is timer-based, i.e. essentially a moving
+                          # average. With the few short stops the elapsed pace
+                          # is ~21.0–21.8. Daytime with shops open — read a few
+                          # % optimistic vs the race's night run either way.
+    # Race translation: the missing Hundipea start adds the 11 km neutralised
+    # roll (~0.5 h) plus ~5 km at own pace — call it +0.9 h. ~8.1 h gun-to-quay
+    # lands ~05:05, roughly 70 min inside the 06:15 target for the 06:30 boat.
+    stops       = "Keila Alexela 24h (shop stop), a few short pastry stops; rolled past Risti Circle K",
+    # First logged intake ever (carbs_tested below): bought 4 × 70 g cinnamon
+    # rolls (~160 g carbs) + 0.5 L regular cola (~53 g), plus ~1 L bottle with
+    # 1 tsp hydration mix + 4–5 tsp sugar (~20 g). Carried 8 × 50 g Kalev bars
+    # and trail mix, consumed amount not recorded. Known intake ≈ 32 g/h;
+    # everything carried ≈ 68 g/h — short of the 90 g/h target either way.
+    carb_g_h_est = c(32, 68),
+    # First hydration log ever, too: ~2.6 L total (mix bottle + 0.5 L cola +
+    # 1.1 L water, refilled in Keila) over 7.2 h ≈ 360 ml/h. That matches the
+    # lower end of the TBR-measured sweat rate (345–502 ml/h), which is the
+    # sensible figure for a cool Estonian day — drinking was adequate for the
+    # conditions, unlike the carbs. In an August warm spell the 500+ ml/h end
+    # of the band applies and remains unpractised.
+    fluid_ml_h_est = 360
   ),
 
   # ── TBR 2026: what a hard multi-day looks like when it goes wrong ───────────
@@ -77,10 +117,10 @@ ATHLETE <- list(
   ),
 
   # ── Fuelling ────────────────────────────────────────────────────────────────
-  # UNTESTED. The 90 g/h is a plan target written for TBR 2027; the training
-  # project contains no logged intake of any kind — every nutrition entry is
-  # zero and every hydration entry is 0.0 ml. Treat as a target to rehearse
-  # before the race, not as a known tolerance.
+  # The 90 g/h is a plan target written for TBR 2027. Until 30 Jul the training
+  # project contained no logged intake of any kind; the recon above is the
+  # first data point — an estimated 30–65 g/h, from memory — so the full-dose
+  # target is still unrehearsed. Treat 90 g/h as a target, not a tolerance.
   carb_g_h_target  = 90,
   fluid_ml_h       = c(500, 750),
   carbs_tested     = FALSE,

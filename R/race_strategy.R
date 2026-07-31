@@ -179,6 +179,15 @@ arr_at_roh <- function(p) {
 arr_roh  <- arr_at_roh(prof_me)
 arr_2025 <- arr_at_roh(PROFILES |> filter(profile == "Taavi 2025 tempo"))
 
+# Verdict against the quay target (first Saturday sailing minus boarding), so
+# the narrative can never contradict the arithmetic.
+roh_gate <- opts$dep[1] - BOARD_BUF * 3600
+gate_lbl <- function(arr) {
+  m <- as.numeric(difftime(roh_gate, arr, units = "mins"))
+  if (m >= 0) sprintf("**%.0f min varu** %s sihi peale", m, format(roh_gate, "%H:%M"))
+  else        sprintf("**%.0f min üle** %s sihi — praam läinud", -m, format(roh_gate, "%H:%M"))
+}
+
 # ── Report ────────────────────────────────────────────────────────────────────
 
 pct <- function(x) sprintf("%+.0f%%", 100 * x)
@@ -220,11 +229,13 @@ md <- c(
   "",
   "### Kus sina selles tabelis oled",
   "",
-  sprintf("Praeguse vormi mudel (%s km/h avaetapil, %d%% peatusi) toob su Rohukülla kell **%s** — 06:30 praam on läinud ja koos sellega laupäevane Sõru.",
-          num_et(prof_me$push_kmh, 1), round(100 * prof_me$push_frac), format(arr_roh, "%H:%M")),
-  sprintf("2025. aasta vormis (%s km/h, 6%% peatusi) oleksid kohal **%s** — praam kindlalt käes.",
-          num_et(PROFILES$push_kmh[PROFILES$profile == "Taavi 2025 tempo"], 1), format(arr_2025, "%H:%M")),
-  "Kogu strateegia taandub küsimusele, kumb number on tõele lähemal — täpselt seda mõõdab kolmapäevane luuresõit.",
+  sprintf("Luurega kalibreeritud mudel (%s km/h avaetapil, %d%% peatusi) toob su Rohukülla kell **%s** — %s.",
+          num_et(prof_me$push_kmh, 1), round(100 * prof_me$push_frac),
+          format(arr_roh, "%H:%M"), gate_lbl(arr_roh)),
+  sprintf("2025. aasta vormi profiil (%s km/h, 6%% peatusi) annab **%s** — %s. Kaks sõltumatut numbrit, sama vastus.",
+          num_et(PROFILES$push_kmh[PROFILES$profile == "Taavi 2025 tempo"], 1),
+          format(arr_2025, "%H:%M"), gate_lbl(arr_2025)),
+  "Mõõdetud alus: 30.07 luure — 157 km uksest Rohuküla kaini lõplikul rajal, Edge'i keskmine 21,8 km/h ([`recon_ride.md`](recon_ride.md)). Fail läks kaotsi ja tempo jäi mällu; võimsuse ja peatuste jaotuse mõõdab võistlus ise.",
   "",
   "### Murdepunkt — avaetapi sõidutempo, mis 18:30 praami veel püüab",
   "",
@@ -243,7 +254,7 @@ md <- c(
   "**Plaan A — luure näitab murdepunkti-tempot:** sõida esimene öö läbi, ole Rohukülas enne 06:15, Hiiumaa ühe hooga, 18:30 Sõru praam, maga Saaremaal.",
   sprintf("**Plaan B — ei näita:** ära põleta end 08:30 praami nimel, see ei osta midagi — 18:30 jääb ikka püüdmata. Võta Hiiumaa rahulikult, maga korralikult (CP1 Palukülas km %s on köök ja dušid) ja ole pühapäeva 08:15 Sõru praamil. Hind: %s h hiljem Saaremaal, aga puhanuna ja ilma end esimese ööpäevaga tühjaks sõitmata.",
           num_et(waypoints$km[waypoints$type == "cp"][1], 0), num_et(GAP_H, 1)),
-  "Otsus langeb luuresõidu järel, mitte võistlusel improviseerides.",
+  "Luure (30.07) langetas otsuse: **plaan A**. Plaan B jääb tagataskusse juhuks, kui võistlusnädal toob haiguse, tehnilise rikke või tõsise vastutuule — siis on tal endiselt täpne hind ja täpne ööbimiskoht.",
   "",
   "### Kuidas iga Sõru praam kätte saada",
   "",
