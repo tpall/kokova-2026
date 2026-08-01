@@ -1,6 +1,6 @@
 # Kõkõva 900 · 2026 — võistlusstrateegia
 
-> Genereeritud **2026-07-31 17:25 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
+> Genereeritud **2026-08-01 09:29 EEST** · rajamudel [`R/plan.R`](../R/plan.R) · sportlase andmed [`R/athlete.R`](../R/athlete.R)
 
 **Start** R 14.08 21:00 Hundipea · **limiit** 7 päeva → R 21.08 21:00 · **rada** 986 km (942 km sõitu + 45 km praame), ~4000 m tõusu
 
