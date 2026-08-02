@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-01T06:28:55Z",
+  "generated_utc": "2026-08-02T06:32:29Z",
   "race_start": "2026-08-14T21:00:00+0300",
   "ferries": [
     {
@@ -1942,7 +1942,7 @@
       "leg": "SOR-TRI",
       "date": "2026-08-15",
       "depart": "2026-08-15T18:30:00+0300",
-      "bikes": 47,
+      "bikes": 46,
       "vessel": "P/L Soela"
     },
     {
