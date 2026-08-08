@@ -10,41 +10,48 @@ Võistlusnädala avaleht. Puuduta dokumenti, et avada. Working Copys **tõmba Wi
 
 **Sõidame `gps-weather` prognoosi järgi, mitte siinse R-mudeli järgi.** Kaks mudelit ei ole nõus (vt allpool); valitud on ettevaatlikum, sest võistlus ise on selle test.
 
+*Prognoos 08.08 (6 päeva ette). Vahe eelmisega on suur — vt hoiatust allpool.*
+
 | | |
 |---|---|
 | **Baasplaan** | **Plaan B — pühapäeva 08:15 Sõru praam** |
-| Plaan A (L 18:30 Sõru) | **upside, mitte eeldus** — 31% ka siis, kui 06:30 kätte saad |
+| Plaan A (L 18:30 Sõru) | **upside, mitte eeldus** — 40% ka siis, kui 06:30 kätte saad |
 | Avaöö | **sõida läbi ja püüa 06:30 Rohuküla praam** — see on ainus, mis plaani A elus hoiab |
-| Finiš | q50 **93 h** → T 18.08 ~18:00 (q10 82 h · q90 104 h) |
+| Finiš | q50 **94 h** → T 18.08 ~18:45 (q10 83 h · q90 105 h) |
 
-Avaetapi surve tasub end ära ka plaani B puhul: see ostab värava, mitte ülesõidu.
+Avaetapi surve tasub end ära ka plaani B puhul: see ostab värava, mitte ülesõitu.
 
 | Avaetapi tempo | 06:30 praam | L 18:30 Sõru |
 |---|---:|---:|
-| tavatempo | 57% | 18% |
-| +10% | 82% | 24% |
-| **+15%** | **89%** | **27%** |
-| +20% | 94% | 31% |
+| tavatempo | 28% | 11% |
+| +10% | 51% | 15% |
+| **+15%** | **60%** | **16%** |
+| +20% | 74% | 17% |
+
+⚠️ **Prognoos halvenes ööpäevaga järsult.** 07.08 cube andis 06:30 praamile 57%,
+08.08 cube annab **28%** — avaetapi vastutuul kasvas **+1,2 → +2,2 m/s**. Kogu vahe
+on tuul, mitte mudel. Kuue päeva pealt on see veel liikuv number: **jooksuta uuesti
+12.–13.08**, enne kui avaöö taktika lõplikult paika paned.
 
 ## ⛴️ Praamid — ahel, mis võistluse otsustab
 
 | Praam | Saabumine q50 | Väljumised |
 |---|---|---|
-| Rohuküla→Heltermaa (km 173) | L 06:22 | **57% 06:30** · 43% 08:30 |
-| Sõru→Triigi (km 368) | P 01:14 | 18% L 18:30 · **82% P 08:15** |
-| Kuivastu→Virtsu (km 692) | E 13:45 | tihe graafik, ootamine ~0,3 h |
+| Rohuküla→Heltermaa (km 173) | L 06:55 | 28% 06:30 · **72% 08:30** |
+| Sõru→Triigi (km 368) | P 02:51 | 11% L 18:30 · **89% P 08:15** |
+| Kuivastu→Virtsu (km 692) | E ~14:00 | tihe graafik, ootamine ~0,3 h |
 
-**Kui jääd 08:30 praamile, on laupäevane 18:30 Sõru praam matemaatiliselt läbi — 100% jõuab alles pühapäeva 08:15 praamile.** See on ainus number, mille mõlemad mudelid ühtemoodi ütlevad.
+**Kui jääd 08:30 praamile, on laupäevane 18:30 Sõru praam matemaatiliselt läbi — 100% jõuab alles pühapäeva 08:15 praamile.** See on ainus number, mis pole ühegi prognoosi ega mudeli juures liikunud.
 
-Kui saad 06:30 praami: 31% jõuab 18:30-ks, 69% mitte. Otsusta Heltermaal kella, mitte enesetunde järgi — Sõruni on **173 km ja 10,5 h**, ehk 16,5 km/h elapsed valdavalt kruusal.
+Kui saad 06:30 praami: 40% jõuab 18:30-ks, 60% mitte. Otsusta Heltermaal kella, mitte enesetunde järgi — Sõruni on **173 km ja 10,5 h**, ehk 16,5 km/h elapsed valdavalt kruusal.
 
 ## ☀️ Ilm — ei ole probleem
 
-Rasked numbrid: vihm q50 **3,7 h / 2,4 mm** · tundub külmim **12,9 °C** · iilid q90 **11,4 m/s** · külma-märja tunde **0,0 igal kvantiilil**.
+Rasked numbrid (08.08 prognoos): vihm q50 **3,8 h / 2,5 mm** · tundub külmim **12,4 °C** · iilid q90 **11,6 m/s** · külma-märja tunde **0,0 igal kvantiilil**.
 
-Ainus lipp: **q90 vastutuul +5,1 m/s laupäeva pärastlõunal** — täpselt Hiiumaa lõigul, mis Sõru otsustab. Halva tuule stsenaariumis ei ole 18:30 üldse sinu otsustada.
+**Tuul on ainus, mis loeb — ja see on avaöö probleem.** Reede 21:00–03:00 vastutuul q50 **+2,4 m/s** (q90 +4,9), täpselt Rohuküla väravat sõites. Hiiumaal on tuul leebem (q50 ~+1,0).
 
-Riietus on otsustatud: külmumisohtu selles prognoosis ei ole. Uuenda prognoosi enne starti.
+Riietus on otsustatud: külmumisohtu selles prognoosis ei ole, isegi q10 juures on 9,8 °C. Vihma q90 venis 12,7 tunnini — vihmavarustus on ainus, mida tasub üle vaadata.
 
 ## 📄 Raportid
 
